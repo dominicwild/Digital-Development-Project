@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap';
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import NavBar from './components/NavBar' 
+import SideBar from './components/SideBar';
 
 class App extends Component {
+
   constructor(props) {
     super(props);
+
+
+
     this.state = {
       name: '',
-      greeting: ''
+      greeting: '',
+      DDRList: this.randDates()
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  randDates(){
+    let dates = []
+    for(let i=0;i<10;i++){
+      dates.push({date: (new Date(+(new Date()) - Math.floor(Math.random()*10000000000)))})
+    }
+    console.log(dates)
+    return dates
   }
 
   handleChange(event) {
@@ -26,8 +44,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <>
+      <NavBar />
+      <div className="container-fluid p-0">
+        <div className="col-4 mt-2">
+          <SideBar DDRList={this.state.DDRList} />
+        </div>
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -51,8 +74,9 @@ class App extends Component {
           >
             Learn React
           </a>
-        </header>
+        </header> */}
       </div>
+      </>
     );
   }
 }
