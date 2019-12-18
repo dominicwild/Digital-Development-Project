@@ -8,7 +8,7 @@ export default class DDRList extends Component {
     };
 
     render() {
-        console.log(this.state.DDRList)
+        
         let DDRList = this.props.DDRList
         
         return (
@@ -20,7 +20,7 @@ export default class DDRList extends Component {
                     <div className="list-group-item">DDR 4</div>
                     
                     {DDRList.map((DDR) => {
-                        return <DDRListItem date={DDR.date}/>
+                        return <DDRListItem key={Math.random()} date={DDR.date}/>
                     })}
                     
                 </div>

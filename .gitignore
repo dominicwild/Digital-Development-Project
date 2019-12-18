@@ -20,3 +20,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/config.js
+
+hero-service.js
+heroModel.js
+config.js

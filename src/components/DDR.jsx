@@ -3,9 +3,12 @@ import React, { Component } from 'react'
 export default class DDR extends Component {
 
     state = {
-        name: this.props.name,
+        firstName: this.props.firstName,
+        lastName: this.props.lastName,
+        location: this.props.location,
         employeeId: this.props.employeeId,
         managerName: this.props.managerName,
+        managerEmail: this.props.managerEmail,
         businessArea: this.props.businessArea,
         ITXLevel: this.props.ITXLevel,
         date: this.props.date,

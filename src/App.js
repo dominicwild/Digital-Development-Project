@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-
+  
+    
 
     this.state = {
       name: '',
@@ -27,7 +28,7 @@ class App extends Component {
     for(let i=0;i<10;i++){
       dates.push({date: (new Date(+(new Date()) - Math.floor(Math.random()*10000000000)))})
     }
-    console.log(dates)
+    
     return dates
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
     fetch(`/api/greeting?name=${encodeURIComponent(this.state.name)}`)
       .then(response => response.json())
       .then(state => {console.log(state); this.setState(state)});
