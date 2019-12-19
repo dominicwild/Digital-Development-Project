@@ -16,8 +16,8 @@ router
 
   .delete(function(req, res, next) {
     EmployeeModel.destroy(req.params.id)
-      .then(employee => {
-        res.send(employee);
+      .then(result => {
+        res.send(result);
       })
       .catch(err => {
         res.send(err);
@@ -30,7 +30,8 @@ router
   .post(function(req, res, next) {
     EmployeeModel.create(req.body)
       .then(savedEmployee => {
-        res.send(savedEmployee.toJSON());
+        console.log(savedEmployee)
+        res.send(savedEmployee);
       })
       .catch(err => {
         res.send(err);
