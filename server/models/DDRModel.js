@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 //const Employee = require("./EmployeeModel").Employee;
 
 const DDRSchema = new mongoose.Schema({
-  employee: { type: ObjectId, Ref: "Employee", unique: true },
+  employee: { type: ObjectId, Ref: "Employee", required: true, unique: true },
   ITXLevel: { type: String, enum: ["I", "T", "X"] },
   assignmentArea: { type: String, trim: true },
   aspirationShort: { type: String, trim: true },
@@ -26,13 +26,9 @@ const DDRSchema = new mongoose.Schema({
 });
 
 const DDR = mongoose.model("DDR", DDRSchema);
+DDR.init()
 
 function create(ddr) {
-  // console.log(ddr)
-  // const id = await Employee.find({firstName: "Baller"}).exec()
-  // console.log("The id is: ", id)
-  // ddr.employee = "" + id[0]._id
-  // console.log(ddr)
   return DDR.create(ddr);
 }
 
@@ -41,7 +37,7 @@ function get(id) {
 }
 
 function update(ddr) {
-  return DDR.update({ _id: skill.id }, skill);
+  return DDR.update({ employee: ddr.employee }, ddr);
 }
 
 function destroy(id) {

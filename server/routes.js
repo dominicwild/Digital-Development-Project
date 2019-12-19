@@ -109,8 +109,8 @@ router
 
 .get(function(req, res, next) {
   DDRModel.get(req.params.id)
-    .then(skill => {
-      res.send(skill);
+    .then(ddr => {
+      res.send(ddr);
     })
     .catch(err => {
       res.send(err);
@@ -142,7 +142,7 @@ router
 
 .put(function(req, res, next) {
   DDRModel.update(req.body).then(result => {
-    res.send(`${result.n} skill${result.n > 1 ? "s" : ""} has been updated`);
+    res.send(`${result.n} DDR${result.n > 1 ? "s" : ""} has been updated`);
   }).catch((err) => {
     res.status(400).send(err)
   });

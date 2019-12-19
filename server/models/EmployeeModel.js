@@ -9,6 +9,7 @@ const EmployeeSchema = new mongoose.Schema({
 });
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
+Employee.init()
 
 function create(employee) {
   return Employee.create(employee);

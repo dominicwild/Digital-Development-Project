@@ -5,6 +5,7 @@ const SkillSchema = new mongoose.Schema({
 });
 
 const Skill = mongoose.model("Skill", SkillSchema);
+Skill.init()
 
 function create(skill) {
   return Skill.create(skill);
