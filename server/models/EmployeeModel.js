@@ -26,4 +26,4 @@ function destroy(id) {
   return Employee.deleteOne({ employeeId: id });
 }
 
-module.exports = { create, get, update, destroy };
+module.exports = { create, get, update, destroy, Employee };

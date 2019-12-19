@@ -1,6 +1,15 @@
 const router = require("express").Router();
+const mongoose = require("./mongo")
 const EmployeeModel = require("./models/EmployeeModel");
+const SkillModel = require("./models/SkillModel")
+const DDRModel = require("./models/DDRModel")
+const config = require("./config")
 
+mongoose.connect(config.connectionString, {useNewUrlParser: true,useUnifiedTopology: true})
+
+/**
+ * Employee Routes
+ */
 router
   .route("/employee/:id")
 
@@ -30,7 +39,6 @@ router
   .post(function(req, res, next) {
     EmployeeModel.create(req.body)
       .then(savedEmployee => {
-        console.log(savedEmployee)
         res.send(savedEmployee);
       })
       .catch(err => {
@@ -45,5 +53,100 @@ router
       res.status(400).send(err)
     });
   });
+
+/**
+ * Skill Routes
+ */
+router
+  .route("/skill/:id")
+
+  .get(function(req, res, next) {
+    SkillModel.get(req.params.id)
+      .then(skill => {
+        res.send(skill);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  })
+
+  .delete(function(req, res, next) {
+    SkillModel.destroy(req.params.id)
+      .then(result => {
+        res.send(result);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+router
+  .route("/skill")
+
+  .post(function(req, res, next) {
+    SkillModel.create(req.body)
+      .then(savedSkill => {
+        res.send(savedSkill);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  })
+
+  .put(function(req, res, next) {
+    SkillModel.update(req.body).then(result => {
+      res.send(`${result.n} skill${result.n > 1 ? "s" : ""} has been updated`);
+    }).catch((err) => {
+      res.status(400).send(err)
+    });
+  });
+
+  /**
+ * DDR Routes
+ */
+router
+.route("/ddr/:id")
+
+.get(function(req, res, next) {
+  DDRModel.get(req.params.id)
+    .then(skill => {
+      res.send(skill);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+})
+
+.delete(function(req, res, next) {
+  DDRModel.destroy(req.params.id)
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
+
+router
+.route("/ddr")
+
+.post(function(req, res, next) {
+  DDRModel.create(req.body)
+    .then(savedDDR => {
+      res.send(savedDDR);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+})
+
+.put(function(req, res, next) {
+  DDRModel.update(req.body).then(result => {
+    res.send(`${result.n} skill${result.n > 1 ? "s" : ""} has been updated`);
+  }).catch((err) => {
+    res.status(400).send(err)
+  });
+});
+  
 
 module.exports = router;

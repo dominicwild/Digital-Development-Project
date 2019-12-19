@@ -40,7 +40,7 @@ class App extends Component {
     // event.preventDefault();
     fetch(`/api/greeting?name=${encodeURIComponent(this.state.name)}`)
       .then(response => response.json())
-      .then(state => {console.log(state); this.setState(state)});
+      .then(state => {this.setState(state)});
   }
 
   render() {
