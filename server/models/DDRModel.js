@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 //const Employee = require("./EmployeeModel").Employee;
 
 const DDRSchema = new mongoose.Schema({
-  employee: { type: ObjectId, Ref: "Employee", required: true, unique: true },
+  employee: { type: ObjectId, Ref: "Employee", required: true },
   ITXLevel: { type: String, enum: ["I", "T", "X"] },
   assignmentArea: { type: String, trim: true },
   aspirationShort: { type: String, trim: true },
