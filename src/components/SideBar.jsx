@@ -5,8 +5,17 @@ export default class SideBar extends Component {
   render() {
     return (
       <>
-        <button className="btn btn-block btn-primary mb-2">Add new DDR</button>
-        <DDRList DDRList={this.props.DDRList}/>
+        <ul className="nav flex-column p-2">
+          <li className="nav-item">
+            <a className="nav-link">Basic Details</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link">Skills</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link">Development Plan</a>
+          </li>
+        </ul>
       </>
     );
   }
