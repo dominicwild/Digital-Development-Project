@@ -1,0 +1,22 @@
+@import "./Master";
+
+.sidebar-sticky {
+  position: sticky;
+}
+
+.sidebar {
+  height: calc(100vh - 56px);
+  background: rgba(168, 165, 165, 0.315);
+
+  .nav-item:hover {
+    color: $primary-color;
+    cursor: pointer;
+    fill: $primary-color;
+  }
+
+  .nav-item {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+}

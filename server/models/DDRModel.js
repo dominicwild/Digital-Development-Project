@@ -4,8 +4,6 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const DDRSchema = new mongoose.Schema({
   employee: { type: ObjectId, Ref: "Employee", required: true },
-  ITXLevel: { type: String, enum: ["I", "T", "X"] },
-  assignmentArea: { type: String, trim: true },
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
   stengths: [{ type: ObjectId, Ref: "Skill" }],
@@ -26,7 +24,7 @@ const DDRSchema = new mongoose.Schema({
 });
 
 const DDR = mongoose.model("DDR", DDRSchema);
-DDR.init()
+DDR.init();
 
 function create(ddr) {
   return DDR.create(ddr);

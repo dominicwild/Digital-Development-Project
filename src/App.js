@@ -64,11 +64,13 @@ class App extends Component {
       <>
         <NavBar />
         <div className="container-fluid p-0">
-          <div className="row">
-            <div className="col-2 p-0 sidebar-sticky sidebar">
+          <div className="d-flex">
+            <div className="sidebar-sticky sidebar">
+              {/* <div className="sidebar-sticky sidebar"> */}
               <SideBar />
+              {/* </div> */}
             </div>
-            <div className="main-content col-8">{this.route()}</div>
+            <div className="main-content m-4">{this.route()}</div>
           </div>
         </div>
       </>

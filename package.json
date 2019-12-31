@@ -8,9 +8,11 @@
     "jquery": "^3.4.1",
     "mongodb": "^3.4.0",
     "mongoose": "^5.8.1",
+    "node-sass": "^4.13.0",
     "popper.js": "^1.16.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-inlinesvg": "^1.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
     "react-svg-loader": "^3.0.3"
@@ -21,7 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node-env-run server -E environment/.env --exec nodemon | pino-colada",
-    "dev": "run-p server start"
+    "dev": "run-p server start",
+    "sass": "node-sass ./src/scss -o ./src/css -w"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
