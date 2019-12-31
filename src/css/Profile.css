@@ -1,0 +1,10 @@
+.profile form .form-group {
+  display: flex;
+  align-items: center;
+  justify-content: left; }
+  .profile form .form-group label {
+    min-width: 9rem;
+    margin-bottom: 0px; }
+
+.profile form button {
+  width: 5rem; }

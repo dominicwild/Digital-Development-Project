@@ -5,7 +5,7 @@ const EmployeeSchema = new mongoose.Schema({
   lastName: { type: String, required: true, trim: true },
   employeeId: { type: String, required: true, unique: true },
   email: { type: String, required: true, trim: true },
-  ITXLevel: { type: String, enum: ["I", "T", "X"] },
+  ITXLevel: { type: Number, enum: [1, 2, 3] },
   assignmentArea: { type: String, trim: true },
   isManager: { type: Boolean, default: false }
 });

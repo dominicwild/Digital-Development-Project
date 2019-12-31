@@ -12,3 +12,8 @@
     display: flex;
     justify-content: left;
     align-items: center; }
+
+.main-content {
+  flex-grow: 1; }
+  .main-content .title {
+    border-bottom: solid rgba(168, 166, 166, 0.555) 2px; }
