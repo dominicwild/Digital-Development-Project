@@ -7,6 +7,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Profile from "./components/Profile";
+require("./LocalStorageJSON")
 
 class App extends Component {
   constructor(props) {

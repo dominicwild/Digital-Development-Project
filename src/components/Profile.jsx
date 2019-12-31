@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../css/Profile.css";
+const config = require("../ReactConfig");
 
 export default class Profile extends Component {
   saveDetails(event) {
@@ -21,7 +22,8 @@ export default class Profile extends Component {
       ITXLevel: ITXLevel
     };
 
-    console.log(employee);
+    localStorage.setItemJSON(config.user,employee)
+    console.log(localStorage.getItemJSON(config.user));
   }
 
   render() {
