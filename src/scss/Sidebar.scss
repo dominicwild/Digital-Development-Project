@@ -19,6 +19,11 @@
     justify-content: left;
     align-items: center;
   }
+
+  .nav-item.highlight {
+    fill: $primary-color;
+    color: $primary-color;
+  }
 }
 
 .main-content {

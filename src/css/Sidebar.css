@@ -12,6 +12,9 @@
     display: flex;
     justify-content: left;
     align-items: center; }
+  .sidebar .nav-item.highlight {
+    fill: #1DA1F2;
+    color: #1DA1F2; }
 
 .main-content {
   flex-grow: 1; }
