@@ -52,7 +52,7 @@ export default class Profile extends Component {
         const date = new Date().toTimeString();
         const message = `An error has occured (${date}): [${response.status}] ${response.statusText}`;
         this.setState({
-          alert: <Alert message={message} type="danger"/>
+          alert: <Alert message={message} type="danger" key={Math.random()}/>
         });
         this.render()
       }
@@ -65,34 +65,34 @@ export default class Profile extends Component {
         <h2 className="title">Basic Details</h2>
         <form className="m-4">
           <div className="form-group">
-            <label for="firstName">First Name: </label>
+            <label htmlFor="firstName">First Name: </label>
             <input type="text" className="form-control" id="firstName" placeholder="Enter your first name" />
           </div>
 
           <div className="form-group">
-            <label for="lastName">Last Name: </label>
+            <label htmlFor="lastName">Last Name: </label>
             <input type="text" className="form-control" id="lastName" placeholder="Enter your last name" />
           </div>
 
           <div className="form-group">
-            <label for="email">Email: </label>
+            <label htmlFor="email">Email: </label>
             <input type="email" className="form-control" id="email" placeholder="Enter your work email" />
           </div>
 
           <div className="form-group">
-            <label for="employeeId">Employee ID: </label>
+            <label htmlFor="employeeId">Employee ID: </label>
             <input type="text" className="form-control" id="employeeId" placeholder="Enter your employee ID" />
           </div>
 
           <div className="form-group">
-            <label for="assignmentArea">Assignment Area: </label>
+            <label htmlFor="assignmentArea">Assignment Area: </label>
             <input type="text" className="form-control" id="assignmentArea" placeholder="Enter your assignment area" />
           </div>
 
           <div className="form-group">
-            <label for="ITXLevel">ITX Level: </label>
+            <label htmlFor="ITXLevel">ITX Level: </label>
             <select className="form-control" id="ITXLevel" placeholder="Enter your employee ID">
-              <option selected value="1">
+              <option value="1">
                 I
               </option>
               <option value="2">T</option>

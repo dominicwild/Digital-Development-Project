@@ -9,15 +9,25 @@ class Alert extends Component {
       type: "alert-" + props.type
     };
   }
+
+  dismiss(event) {
+    console.log("Clicked!");
+    console.log(event);
+
+    const element = document.getElementById("alertDismiss");
+    element.style.opacity = 0;
+    setTimeout(() => (element.style.display = "none"), 500);
+  }
+
   render() {
     if (this.type === "alert-") {
       return "";
     }
     return (
       <>
-        <div className={`alert ${this.state.type} alert-dismissible fade show mt-3`} role="alert" data-milli={Math.random()}>
-          {this.state.message} {Math.random()}
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+        <div className={`alert ${this.state.type} alert-dismissible fade show mt-3`} role="alert" id="alertDismiss">
+          {this.state.message}
+          <button type="button" className="close" aria-label="Close" onClick={this.dismiss}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>

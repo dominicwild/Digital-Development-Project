@@ -27,7 +27,7 @@ export default class SideBar extends Component {
     return navItems.map(item => {
       const highlighted = item.pathName === pathRoot ? "highlight" : ""
       return (
-        <li className={`nav-item ${highlighted}`}>
+        <li className={`nav-item ${highlighted}`} key={Math.random()}>
           <a className= "nav-link px-0" >
             <SVG className="mr-2 icon" src={item.icon} />
             <span>{item.name}</span>
