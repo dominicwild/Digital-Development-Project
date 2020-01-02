@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import "../css/Profile.css";
+import { json } from "body-parser";
+import Alert from "./Alert";
 const config = require("../ReactConfig");
 
 export default class Profile extends Component {
-  saveDetails(event) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      alert: ""
+    };
+  }
+
+  saveDetails = event => {
     event.preventDefault();
 
     const firstName = document.getElementById("firstName").value;
@@ -22,9 +31,33 @@ export default class Profile extends Component {
       ITXLevel: ITXLevel
     };
 
-    localStorage.setItemJSON(config.user,employee)
-    console.log(localStorage.getItemJSON(config.user));
-  }
+    //Insert employee into database
+    fetch("/api/employee", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(employee)
+    }).then(response => {
+      if (response.ok) {
+        let data = response.json();
+        localStorage.setItemJSON(config.user, data);
+        console.log(localStorage.getItemJSON(config.user));
+        const date = new Date().toLocaleString();
+        const message = `Details saved successfully (${date})`;
+        this.setState({
+          alert: <Alert message={message} type="success" />
+        });
+      } else {
+        const date = new Date().toTimeString();
+        const message = `An error has occured (${date}): [${response.status}] ${response.statusText}`;
+        this.setState({
+          alert: <Alert message={message} type="danger"/>
+        });
+        this.render()
+      }
+    });
+  };
 
   render() {
     return (
@@ -70,6 +103,8 @@ export default class Profile extends Component {
           <button className="btn btn-primary" onClick={this.saveDetails}>
             Save
           </button>
+
+          {this.state.alert}
         </form>
       </div>
     );
