@@ -38,25 +38,30 @@ export default class Profile extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(employee)
-    }).then(response => {
-      if (response.ok) {
-        let data = response.json();
-        localStorage.setItemJSON(config.user, data);
-        console.log(localStorage.getItemJSON(config.user));
-        const date = new Date().toLocaleString();
-        const message = `Details saved successfully (${date})`;
-        this.setState({
-          alert: <Alert message={message} type="success" />
-        });
-      } else {
-        const date = new Date().toTimeString();
-        const message = `An error has occured (${date}): [${response.status}] ${response.statusText}`;
-        this.setState({
-          alert: <Alert message={message} type="danger" key={Math.random()}/>
-        });
-        this.render()
-      }
-    });
+    })
+      .then(response => {
+        if (!response.ok) {
+          const date = new Date().toTimeString();
+          const message = `An error has occured (${date}): [${response.status}] ${response.statusText}`;
+          this.setState({
+            alert: <Alert message={message} type="danger" key={Math.random()} />
+          });
+          this.render();
+        } else {
+          return response.json();
+        }
+      })
+      .then(data => {
+        if (data != null) {
+          localStorage.setItemJSON(config.user, data);
+          console.log(localStorage.getItemJSON(config.user));
+          const date = new Date().toLocaleString();
+          const message = `Details saved successfully (${date})`;
+          this.setState({
+            alert: <Alert message={message} type="success" />
+          });
+        }
+      });
   };
 
   render() {
@@ -92,9 +97,7 @@ export default class Profile extends Component {
           <div className="form-group">
             <label htmlFor="ITXLevel">ITX Level: </label>
             <select className="form-control" id="ITXLevel" placeholder="Enter your employee ID">
-              <option value="1">
-                I
-              </option>
+              <option value="1">I</option>
               <option value="2">T</option>
               <option value="3">X</option>
             </select>
