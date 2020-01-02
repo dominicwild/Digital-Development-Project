@@ -1,0 +1,27 @@
+.skills {
+  .strengths {
+    background-color: rgba(184, 135, 11, 0.192);
+    flex-grow: 1;
+  }
+
+  .opportunities {
+    background-color: rgba(100, 148, 237, 0.164);
+    flex-grow: 1;
+  }
+
+  label {
+    margin-bottom: 0px;
+    margin-right: 10px;
+  }
+
+  .add-btn {
+    font-size: 17pt;
+    width: 2em;
+    svg.icon {
+      $addBtnSize: 32px;
+      fill: white;
+      width: $addBtnSize;
+      height: $addBtnSize;
+    }
+  }
+}

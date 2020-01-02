@@ -11,18 +11,33 @@
   .nav-item:hover {
     color: $primary-color;
     cursor: pointer;
-    fill: $primary-color;
+
+    svg {
+      fill: $primary-color;
+    }
+
+    span {
+      color: $primary-color;
+    }
   }
 
   .nav-item {
     display: flex;
     justify-content: left;
     align-items: center;
+
+    a {
+      color: black;
+    }
   }
 
   .nav-item.highlight {
-    fill: $primary-color;
-    color: $primary-color;
+    svg {
+      fill: $primary-color;
+    }
+    span {
+      color: $primary-color;
+    }
   }
 }
 

@@ -6,14 +6,20 @@
   background: rgba(168, 165, 165, 0.315); }
   .sidebar .nav-item:hover {
     color: #1DA1F2;
-    cursor: pointer;
-    fill: #1DA1F2; }
+    cursor: pointer; }
+    .sidebar .nav-item:hover svg {
+      fill: #1DA1F2; }
+    .sidebar .nav-item:hover span {
+      color: #1DA1F2; }
   .sidebar .nav-item {
     display: flex;
     justify-content: left;
     align-items: center; }
-  .sidebar .nav-item.highlight {
-    fill: #1DA1F2;
+    .sidebar .nav-item a {
+      color: black; }
+  .sidebar .nav-item.highlight svg {
+    fill: #1DA1F2; }
+  .sidebar .nav-item.highlight span {
     color: #1DA1F2; }
 
 .main-content {

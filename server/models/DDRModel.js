@@ -1,13 +1,13 @@
 const mongoose = require("../mongo");
 const ObjectId = mongoose.Schema.Types.ObjectId;
-//const Employee = require("./EmployeeModel").Employee;
+const Employee = require("./EmployeeModel");
 
 const DDRSchema = new mongoose.Schema({
-  employee: { type: ObjectId, Ref: "Employee", required: true },
+  employeeId: { type: String, ref: "Employee", required: true },
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
-  stengths: [{ type: ObjectId, Ref: "Skill" }],
-  opportunities: [{ type: ObjectId, Ref: "Skill" }],
+  strengths: [{ type: ObjectId, ref: "Skill" }],
+  opportunities: [{ type: ObjectId, ref: "Skill" }],
   goals: [
     {
       developmentArea: { type: String, trim: true },
@@ -31,15 +31,30 @@ function create(ddr) {
 }
 
 function get(id) {
-  return DDR.findById(id).exec();
+  console.log("Getting employee");
+  return DDR.findOne({ employeeId: id }).exec();
 }
 
 function update(ddr) {
-  return DDR.update({ employee: ddr.employee }, ddr);
+  return DDR.update({ employeeId: ddr.employeeId }, ddr);
 }
 
 function destroy(id) {
   return DDR.findByIdAndDelete(id);
 }
 
-module.exports = { create, get, update, destroy };
+function getStrengths(id) {
+  return DDR.findOne({ employeeId: id })
+    .populate("strengths")
+    .select("strengths")
+    .exec();
+}
+
+function getOpportunities(id) {
+  return DDR.findOne({ employeeId: id })
+    .populate("opportunities")
+    .select("opportunities")
+    .exec();
+}
+
+module.exports = { create, get, getStrengths, getOpportunities, update, destroy };

@@ -37,21 +37,21 @@ router
   .route("/employee")
 
   .post(function(req, res) {
-    var a = EmployeeModel.create(req.body)
+    EmployeeModel.create(req.body)
       .then(savedEmployee => {
         res.send(savedEmployee);
       })
       .catch(err => {
-        if(err.name === "MongoError"){
-          if(err.code === 11000){
-            return res.status(409).send(err)
+        if (err.name === "MongoError") {
+          if (err.code === 11000) {
+            return res.status(409).send(err);
           }
         }
         res.status(400).send(err);
       });
   })
 
-  .put(function(req, res, next) {
+  .put(function(req, res) {
     EmployeeModel.update(req.body)
       .then(result => {
         res.send(`${result.n} employee${result.n > 1 ? "s" : ""} has been updated`);
@@ -67,7 +67,7 @@ router
 router
   .route("/skill/:id")
 
-  .get(function(req, res, next) {
+  .get(function(req, res) {
     SkillModel.get(req.params.id)
       .then(skill => {
         res.send(skill);
@@ -136,6 +136,26 @@ router
       });
   });
 
+router.route("/ddr/strengths/:id").get(function(req, res) {
+  DDRModel.getStrengths(req.params.id)
+    .then(ddr => {
+      res.send(ddr);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
+});
+
+router.route("/ddr/opportunities/:id").get(function(req, res) {
+  DDRModel.getOpportunities(req.params.id)
+    .then(ddr => {
+      res.send(ddr);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
+});
+
 router
   .route("/ddr")
 
@@ -158,5 +178,9 @@ router
         res.status(400).send(err);
       });
   });
+
+/**
+ * Test Routes
+ */
 
 module.exports = router;

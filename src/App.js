@@ -7,7 +7,10 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Profile from "./components/Profile";
-require("./LocalStorageJSON")
+import Skills from "./components/Skills";
+import Goals from "./components/Goals";
+require("./LocalStorageJSON");
+require("./StringPrototypes");
 
 class App extends Component {
   constructor(props) {
@@ -52,24 +55,26 @@ class App extends Component {
       case "/profile":
         toRender = <Profile />;
         break;
-
+      case "/skills":
+        toRender = <Skills />;
+        break;
+        case "/goals":
+          toRender = <Goals />;
+          break;
       default:
-        window.location.pathname = "/profile";
+        window.location.pathname = "/";
     }
     return toRender;
   }
 
   render() {
-    console.log(this.props);
     return (
       <>
         <NavBar />
         <div className="container-fluid p-0">
           <div className="d-flex">
             <div className="sidebar-sticky sidebar">
-              {/* <div className="sidebar-sticky sidebar"> */}
               <SideBar />
-              {/* </div> */}
             </div>
             <div className="main-content m-4">{this.route()}</div>
           </div>

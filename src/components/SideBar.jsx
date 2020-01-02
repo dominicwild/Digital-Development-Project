@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import DDRList from "./DDRList";
 import SVG from "react-inlinesvg";
 
 const navItems = [
@@ -28,7 +27,7 @@ export default class SideBar extends Component {
       const highlighted = item.pathName === pathRoot ? "highlight" : ""
       return (
         <li className={`nav-item ${highlighted}`} key={Math.random()}>
-          <a className= "nav-link px-0" >
+          <a className= "nav-link px-0" href={item.pathName}>
             <SVG className="mr-2 icon" src={item.icon} />
             <span>{item.name}</span>
           </a>

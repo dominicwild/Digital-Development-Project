@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../css/Profile.css";
 import { json } from "body-parser";
 import Alert from "./Alert";
+import Title from "./Title";
 const config = require("../ReactConfig");
 
 export default class Profile extends Component {
@@ -67,7 +68,7 @@ export default class Profile extends Component {
   render() {
     return (
       <div className="profile">
-        <h2 className="title">Basic Details</h2>
+        <Title title="Basic Details"/>
         <form className="m-4">
           <div className="form-group">
             <label htmlFor="firstName">First Name: </label>
