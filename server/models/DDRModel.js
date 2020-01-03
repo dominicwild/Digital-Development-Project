@@ -11,15 +11,15 @@ const DDRSchema = new mongoose.Schema({
   opportunities: [{ type: String, ref: "Skill", unique: true }],
   goals: [
     {
-      developmentArea: { type: String, trim: true },
-      action: { type: String, trim: true },
+      developmentArea: { type: String, trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal goals
+      action: { type: String, trim: true }, //What you will do to achieve that goal
       frequency: {
         type: String,
         enum: ["Daily", "Weekly", "Monthly", "Yearly"]
       },
       duration: { type: Number },
       status: { type: String, enum: ["Open", "Closed"] },
-      startDate: { type: Number }
+      startDate: { type: Number, default: Date.now()}
     }
   ]
 });
