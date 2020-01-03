@@ -5,8 +5,6 @@ import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
 require("bootstrap-datepicker");
 
-const StartDate = ({ value, onClick, dateId }) => <input type="text" className="form-control" id={dateId} value={value} onClick={onClick} />;
-
 export default class Goal extends Component {
   areaId = randInt();
   actionId = randInt();
@@ -68,7 +66,7 @@ export default class Goal extends Component {
               </label>
               <select type="text" className="form-control" id={this.frequencyId}>
                 {frequency.map(item => {
-                  return <option>{item}</option>;
+                  return <option key={Math.random()}>{item}</option>;
                 })}
               </select>
             </div>

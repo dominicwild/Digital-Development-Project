@@ -8,7 +8,7 @@ export default class Goals extends Component {
     return (
       <div className="goals">
         <div className="save-all-btn-container">
-          <button className="btn btn-primary save-all-btn">Save All</button>
+          <button className="btn btn-outline-success save-all-btn">Save All</button>
         </div>
         <Title title="Goals" />
         <Goal area="IT Professional" />

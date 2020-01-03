@@ -12,9 +12,7 @@ require("./LocalStorageJSON");
 require("./StringPrototypes");
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
 
   randDates() {
     let dates = [];
@@ -39,6 +37,7 @@ class App extends Component {
       case "/goals":
         toRender = <Goals />;
         break;
+      default:
     }
     return toRender;
   }

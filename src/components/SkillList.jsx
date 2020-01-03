@@ -6,24 +6,6 @@ export default class SkillList extends Component {
   constructor(props) {
     super(props);
     const field = props.field;
-    let listItems;
-
-    // fetch("/api/ddr/" + props.field + "/" + user.employeeId)
-    //   .then(response => {
-    //     if (!response.ok) {
-    //       console.log(response.status + " " + response.statusText);
-    //     } else {
-    //       return response.json();
-    //     }
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     console.log("/api/ddr/" + props.field + "/" + user.employeeId);
-    //     listItems = data[field];
-    //     this.setState({
-    //       listItems: listItems
-    //     });
-    //   });
 
     this.setListItems();
 
@@ -84,7 +66,7 @@ export default class SkillList extends Component {
         .then(data => {
           if (data.success) {
             this.setState(listItems);
-            document.getElementById(this.state.field).value = ""
+            document.getElementById(this.state.field).value = "";
           }
         });
     }
@@ -133,8 +115,8 @@ export default class SkillList extends Component {
   };
 
   addItemKeyPress = event => {
-    console.log(event)
-    if ((event.key === "Enter")) {
+    console.log(event);
+    if (event.key === "Enter") {
       this.addItem(event);
     }
   };
@@ -145,7 +127,7 @@ export default class SkillList extends Component {
         <div className="form-group d-flex m-3 justify-content-center align-items-center">
           <label htmlFor="lastName">{this.state.labelText}: </label>
           <div className="input-group">
-            <input type="text" className="form-control" placeholder={this.state.placeholderText} id={this.state.field} onKeyPress={this.addItemKeyPress}/>
+            <input type="text" className="form-control" placeholder={this.state.placeholderText} id={this.state.field} onKeyPress={this.addItemKeyPress} />
             <div className="input-group-append">
               <button className="btn btn-primary add-btn m-0 p-0" type="button" onClick={this.addItem}>
                 <SVG className="icon" src="/icons/add.svg" />

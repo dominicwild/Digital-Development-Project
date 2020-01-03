@@ -15,6 +15,7 @@
 .goals .save-all-btn-container {
   position: relative; }
   .goals .save-all-btn-container .save-all-btn {
+    width: 6em;
     position: absolute;
     left: calc(100% - 6em);
     top: -0.4em; }

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../css/Profile.css";
-import { json } from "body-parser";
 import Alert from "./Alert";
 import Title from "./Title";
 const config = require("../ReactConfig");

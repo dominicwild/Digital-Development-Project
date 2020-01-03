@@ -7,7 +7,7 @@ export default class NavBar extends Component {
         return (
             <>
             <nav className="navbar navbar-dark bg-primary">
-                <a className="navbar-brand" href="#">Navbar</a>
+                <a className="navbar-brand" href="/">Navbar</a>
                 <span>Logged in as: <b>{user.firstName} {user.lastName}</b></span>
             </nav>
             </>
