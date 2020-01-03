@@ -2,9 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
-const routes =  require("./routes")
-// const index = require("./mongoIndex")
-// index()
+const routes =  require("./routes/routes")
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));

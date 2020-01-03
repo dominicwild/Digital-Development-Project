@@ -5,10 +5,14 @@ const SkillSchema = new mongoose.Schema({
 });
 
 const Skill = mongoose.model("Skill", SkillSchema);
-Skill.init()
+Skill.init();
 
 function create(skill) {
-  return Skill.create(skill);
+  return Skill.create(skill).catch(err => {
+    if (err.code === 11000) {
+      console.error("[ERROR] Entered duplicate skill");
+    }
+  });
 }
 
 function get(id) {
@@ -16,7 +20,7 @@ function get(id) {
 }
 
 function update(skill) {
-    return Skill.update({_id: skill.id}, skill);
+  return Skill.update({ _id: skill.id }, skill);
 }
 
 function destroy(id) {

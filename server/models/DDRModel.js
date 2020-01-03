@@ -1,13 +1,14 @@
 const mongoose = require("../mongo");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const Employee = require("./EmployeeModel");
+const Skill = require("./SkillModel");
 
 const DDRSchema = new mongoose.Schema({
-  employeeId: { type: String, ref: "Employee", required: true },
+  employeeId: { type: String, ref: "Employee", required: true, index: true },
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
-  strengths: [{ type: ObjectId, ref: "Skill" }],
-  opportunities: [{ type: ObjectId, ref: "Skill" }],
+  strengths: [{ type: String, ref: "Skill", unique: true }],
+  opportunities: [{ type: String, ref: "Skill", unique: true }],
   goals: [
     {
       developmentArea: { type: String, trim: true },
@@ -31,12 +32,11 @@ function create(ddr) {
 }
 
 function get(id) {
-  console.log("Getting employee");
   return DDR.findOne({ employeeId: id }).exec();
 }
 
 function update(ddr) {
-  return DDR.update({ employeeId: ddr.employeeId }, ddr);
+  return DDR.updateOne({ employeeId: ddr.employeeId }, ddr);
 }
 
 function destroy(id) {
@@ -45,16 +45,33 @@ function destroy(id) {
 
 function getStrengths(id) {
   return DDR.findOne({ employeeId: id })
-    .populate("strengths")
     .select("strengths")
     .exec();
 }
 
 function getOpportunities(id) {
   return DDR.findOne({ employeeId: id })
-    .populate("opportunities")
     .select("opportunities")
     .exec();
 }
 
-module.exports = { create, get, getStrengths, getOpportunities, update, destroy };
+function updateOpportunities(ddr) {
+  return DDR.updateOne({ employeeId: ddr.employeeId }, ddr).exec();
+}
+
+function updateSkills(ddr) {
+  const newSkill = { skill: ddr.newSkill };
+  delete ddr["newSkill"];
+  return DDR.updateOne({ employeeId: ddr.employeeId }, ddr)
+    .exec()
+    .then(result => {
+      if (result.n === 1) {
+        Skill.create(newSkill);
+        return true;
+      } else {
+        return false;
+      }
+    });
+}
+
+module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills };
