@@ -5,6 +5,7 @@
   "dependencies": {
     "@azure/cosmos": "^3.5.2",
     "bootstrap": "^4.4.1",
+    "bootstrap-datepicker": "^1.9.0",
     "jquery": "^3.4.1",
     "mongodb": "^3.4.0",
     "mongoose": "^5.8.1",

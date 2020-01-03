@@ -1,7 +1,6 @@
 const mongoose = require("../mongo");
-const ObjectId = mongoose.Schema.Types.ObjectId;
-const Employee = require("./EmployeeModel");
 const Skill = require("./SkillModel");
+const {frequency, status} = require( "../../src/ModelEnums/DDRModelEnums")
 
 const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", required: true, index: true },
@@ -15,11 +14,11 @@ const DDRSchema = new mongoose.Schema({
       action: { type: String, trim: true }, //What you will do to achieve that goal
       frequency: {
         type: String,
-        enum: ["Daily", "Weekly", "Monthly", "Yearly"]
+        enum: frequency
       },
       duration: { type: Number },
-      status: { type: String, enum: ["Open", "Closed"] },
-      startDate: { type: Number, default: Date.now()}
+      status: { type: String, enum: status },
+      startDate: { type: Number }
     }
   ]
 });
@@ -55,9 +54,6 @@ function getOpportunities(id) {
     .exec();
 }
 
-function updateOpportunities(ddr) {
-  return DDR.updateOne({ employeeId: ddr.employeeId }, ddr).exec();
-}
 
 function updateSkills(ddr) {
   const newSkill = { skill: ddr.newSkill };

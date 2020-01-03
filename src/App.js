@@ -36,11 +36,9 @@ class App extends Component {
       case "/skills":
         toRender = <Skills />;
         break;
-        case "/goals":
-          toRender = <Goals />;
-          break;
-      default:
-        window.location.pathname = "/";
+      case "/goals":
+        toRender = <Goals />;
+        break;
     }
     return toRender;
   }
