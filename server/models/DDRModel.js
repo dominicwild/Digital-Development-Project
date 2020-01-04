@@ -6,8 +6,8 @@ const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", required: true, index: true },
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
-  strengths: [{ type: String, ref: "Skill", unique: true }],
-  opportunities: [{ type: String, ref: "Skill", unique: true }],
+  strengths: [{ type: String, ref: "Skill"}],
+  opportunities: [{ type: String, ref: "Skill"}],
   goals: [
     {
       developmentArea: { type: String, trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal goals
@@ -53,6 +53,8 @@ function getOpportunities(id) {
     .select("opportunities")
     .exec();
 }
+
+
 
 
 function updateSkills(ddr) {

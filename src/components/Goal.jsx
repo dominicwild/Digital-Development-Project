@@ -4,6 +4,7 @@ import { frequency, status } from "../ModelEnums/DDRModelEnums";
 import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
 require("bootstrap-datepicker");
+const user = require("../User");
 
 export default class Goal extends Component {
   areaId = randInt();
@@ -23,7 +24,7 @@ export default class Goal extends Component {
   componentDidMount() {
     var date = new Date();
     date.setDate(date.getDate() - 1);
-    console.log(document.getElementById(this.dateId + ""));
+
     $(document.getElementById(this.dateId)).datepicker({
       todayBtn: "linked",
       clearBtn: true,
@@ -31,6 +32,34 @@ export default class Goal extends Component {
       startDate: date
     });
   }
+
+  save = event => {
+    //Get all input
+    const area = document.getElementById(this.areaId).value;
+    const action = document.getElementById(this.actionId).value;
+    const frequency = document.getElementById(this.frequencyId).value;
+    const status = document.getElementById(this.statusId).value;
+    const date = document.getElementById(this.dateId).value;
+
+    const requestBody = {
+      employeeId: user.employeeId,
+      goals: { area: area, action: action, frequency: frequency, status: status, date: new Date(date).getTime() }
+    };
+
+    fetch("/ddr/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(requestBody)
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error(response.status + " " + response.statusText);
+      }
+    });
+  };
 
   render() {
     const areaState = !(this.state.area === undefined);
@@ -87,7 +116,9 @@ export default class Goal extends Component {
               <input type="text" className="form-control" id={this.dateId} />
             </div>
           </div>
-          <button className="btn btn-success save-btn">Save</button>
+          <button className="btn btn-success save-btn" onClick={this.save}>
+            Save
+          </button>
         </div>
       </div>
     );
