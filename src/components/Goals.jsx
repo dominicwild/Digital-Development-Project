@@ -3,7 +3,22 @@ import Title from "./Title";
 import Goal from "./Goal";
 import "../css/Goals.css";
 
+
 export default class Goals extends Component {
+
+constructor(props){
+  super(props)
+
+  this.state = {
+
+  }
+}
+
+
+getGoals = () => {
+  
+}
+
   render() {
     return (
       <div className="goals">

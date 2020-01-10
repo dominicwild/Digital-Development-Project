@@ -148,10 +148,6 @@ export default class Goal extends Component {
             </div>
             {this.state.alert}
           </div>
-          {/* <button className="btn btn-success save-btn" onClick={this.save}>
-            Save
-          </button>
-          {this.state.alert} */}
         </div>
       </div>
     );

@@ -107,7 +107,6 @@ router
 
   .put(function(req, res){
     const body = req.body
-    console.log(body)
       DDRModel.insertGoal(body.employeeId,body.goal).then(result => {
         res.send(result)
       }).catch(err => {
