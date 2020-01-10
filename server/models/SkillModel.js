@@ -1,11 +1,18 @@
 const mongoose = require("../mongo");
 
 const SkillSchema = new mongoose.Schema({
-  skill: { type: String, required: true, unique: true, trim: true }
+  skill: {
+    type: String,
+    index: {
+      unique: true,
+      collation: { locale: "en", strength: 2 }
+    },
+    required: true,
+    trim: true
+  }
 });
 
 const Skill = mongoose.model("Skill", SkillSchema);
-Skill.init();
 
 function create(skill) {
   return Skill.create(skill).catch(err => {

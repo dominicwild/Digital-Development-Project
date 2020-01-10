@@ -1,0 +1,53 @@
+POST http://localhost:3001/api/ddr/
+Content-Type: application/json
+
+{
+    "employeeId": "777",
+    "goals": [
+        {
+            "developmentArea": "Test", 
+            "action":  "Do it", 
+            "frequency": "Daily",
+            "duration": 3,
+            "status": "In Progress",
+            "startDate": 1111
+        }
+    ]
+}
+
+###
+
+PUT http://localhost:3001/api/ddr/goal
+Content-Type: application/json
+
+{
+    "employeeId": "777",
+    "goal": 
+        {
+            "developmentArea": "Test", 
+            "action":  "Do it some more", 
+            "frequency": "Weekly",
+            "duration": 10,
+            "status": "In Progress",
+            "startDate": 1221
+        }
+}
+
+
+###
+
+PUT http://localhost:3001/api/ddr/goal
+Content-Type: application/json
+
+{
+    "employeeId": "777",
+    "goal": 
+        {
+            "developmentArea": "Testaa", 
+            "action":  "Some real action", 
+            "frequency": "Weekly",
+            "duration": 10,
+            "status": "In Progress",
+            "startDate": 122
+        }
+}

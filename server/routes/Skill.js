@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const DDRModel = require("../models/SkillModel");
+const SkillModel = require("../models/SkillModel");
 
 /**
  * Skill Routes

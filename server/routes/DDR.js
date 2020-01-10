@@ -105,8 +105,14 @@ router
   router
   .route("/goal")
 
-  .put(function(res,req){
-
+  .put(function(req, res){
+    const body = req.body
+    console.log(body)
+      DDRModel.insertGoal(body.employeeId,body.goal).then(result => {
+        res.send(result)
+      }).catch(err => {
+        res.status(400).send(err)
+      })
   })
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const mongoose = require("../mongo");
+const DDRModel = require("./DDRModel");
 
 const EmployeeSchema = new mongoose.Schema({
   firstName: { type: String, required: true, trim: true },
@@ -11,7 +12,7 @@ const EmployeeSchema = new mongoose.Schema({
 });
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
-Employee.init()
+Employee.init();
 
 function create(employee) {
   return Employee.create(employee);

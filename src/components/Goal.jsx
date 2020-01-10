@@ -3,7 +3,9 @@ import { randInt } from "../UtilityFunctions";
 import { frequency, status } from "../ModelEnums/DDRModelEnums";
 import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
+import Alert from "./Alert";
 require("bootstrap-datepicker");
+
 const user = require("../User");
 
 export default class Goal extends Component {
@@ -17,7 +19,8 @@ export default class Goal extends Component {
     super(props);
 
     this.state = {
-      area: props.area
+      area: props.area,
+      alert: ""
     };
   }
 
@@ -43,22 +46,35 @@ export default class Goal extends Component {
 
     const requestBody = {
       employeeId: user.employeeId,
-      goals: { area: area, action: action, frequency: frequency, status: status, date: new Date(date).getTime() }
+      goal: { developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
     };
 
-    fetch("/ddr/", {
+    console.log(requestBody);
+
+    fetch("api/ddr/goal", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(requestBody)
-    }).then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        console.error(response.status + " " + response.statusText);
-      }
-    });
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error(response.status + " " + response.statusText);
+        }
+      })
+      .then(data => {
+        console.log(data);
+        if (data.n === 1) {
+          this.setState({ alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} /> });
+        } else {
+          this.setState({
+            alert: <Alert type="danger" message={`An error has occured. The goal has not been saved. (${new Date().toTimeString()})`} />
+          });
+        }
+      });
   };
 
   render() {
@@ -81,7 +97,14 @@ export default class Goal extends Component {
               <label htmlFor={this.areaId} className="mr-2">
                 Development Area:
               </label>
-              <input type="text" className="form-control" id={this.areaId} placeholder="Enter your development area" value={this.state.area} disabled={areaState} />
+              <input
+                type="text"
+                className="form-control"
+                id={this.areaId}
+                placeholder="Enter your development area"
+                value={this.state.area}
+                disabled={areaState}
+              />
             </div>
             <div className="form-group">
               <label htmlFor={this.actionId} className="mr-2 mb-auto">
@@ -116,9 +139,17 @@ export default class Goal extends Component {
               <input type="text" className="form-control" id={this.dateId} />
             </div>
           </div>
-          <button className="btn btn-success save-btn" onClick={this.save}>
+
+          <div className="save-container">
+            <button className="btn btn-success save-btn" onClick={this.save}>
+              Save
+            </button>
+            {this.state.alert}
+          </div>
+          {/* <button className="btn btn-success save-btn" onClick={this.save}>
             Save
           </button>
+          {this.state.alert} */}
         </div>
       </div>
     );

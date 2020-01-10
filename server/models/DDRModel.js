@@ -1,13 +1,14 @@
 const mongoose = require("../mongo");
 const Skill = require("./SkillModel");
-const {frequency, status} = require( "../../src/ModelEnums/DDRModelEnums")
+const { frequency, status } = require("../../src/ModelEnums/DDRModelEnums");
+const { ensureSet } = require("../../src/UtilityFunctions");
 
 const DDRSchema = new mongoose.Schema({
-  employeeId: { type: String, ref: "Employee", required: true, index: true },
+  employeeId: { type: String, ref: "Employee", required: true, index: true, unique: true },
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
-  strengths: [{ type: String, ref: "Skill"}],
-  opportunities: [{ type: String, ref: "Skill"}],
+  strengths: { type: [String], set: ensureSet },
+  opportunities: { type: [String], set: ensureSet },
   goals: [
     {
       developmentArea: { type: String, trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal goals
@@ -54,9 +55,6 @@ function getOpportunities(id) {
     .exec();
 }
 
-
-
-
 function updateSkills(ddr) {
   const newSkill = { skill: ddr.newSkill };
   delete ddr["newSkill"];
@@ -72,4 +70,35 @@ function updateSkills(ddr) {
     });
 }
 
-module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills };
+/**
+ * Adds a goal to the database for the specified employee. It will update the goal if it already exists, otherwise it will insert it as a new goal.
+ * @param {Integer} employeeId The Id of the employee to add the goal to
+ * @param {any} goal The goal to add to the DDR that corresponds to the employee ID
+ */
+function insertGoal(employeeId, goal) {
+  return DDR.updateOne(
+    {
+      employeeId: employeeId,
+      "goals.developmentArea": goal.developmentArea
+    },
+    { employeeId: employeeId, $set: { "goals.$": goal } },
+    { upsert: true }
+  ).catch(err => {
+    if (err.code === 2) {
+      //Means the search query for development area did not find a match
+      return DDR.update(
+        {
+          employeeId: employeeId
+        },
+        {
+          $push: { goals: goal }
+        },
+        { upsert: true }
+      );
+    } else {
+      throw result;
+    }
+  });
+}
+
+module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertGoal };

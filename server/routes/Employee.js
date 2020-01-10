@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const EmployeeModel = require("../models/EmployeeModel");
+const DDRModel = require("../models/DDRModel");
 
 /**
  * Employee Routes
@@ -34,6 +35,9 @@ router
     EmployeeModel.create(req.body)
       .then(savedEmployee => {
         res.send(savedEmployee);
+        DDRModel.create({ employeeId: savedEmployee.employeeId }).catch(err => {
+          console.error(err);
+        });
       })
       .catch(err => {
         if (err.name === "MongoError") {
@@ -55,4 +59,4 @@ router
       });
   });
 
-  module.exports = router
+module.exports = router;

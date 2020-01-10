@@ -14,7 +14,7 @@ export default class SkillList extends Component {
       labelText: props.labelText,
       placeholderText: props.placeholderText,
       listText: props.listText,
-      listItems: [1, 2, 3]
+      listItems: []
     };
   }
 
@@ -35,8 +35,8 @@ export default class SkillList extends Component {
   };
 
   addItem = event => {
-    const toAdd = document.getElementById(this.state.field).value;
-    if (this.state.listItems.find(item => item === toAdd)) {
+    const toAdd = document.getElementById(this.state.field).value.trim();
+    if (this.state.listItems.find(item => item.toLowerCase() === toAdd.toLowerCase())) {
       console.log("Duplicated item attempted to be added");
     } else {
       let listItems = this.state.listItems;
@@ -64,6 +64,7 @@ export default class SkillList extends Component {
           }
         })
         .then(data => {
+          console.log(data)
           if (data.success) {
             this.setState(listItems);
             document.getElementById(this.state.field).value = "";

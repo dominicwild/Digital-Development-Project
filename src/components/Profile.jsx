@@ -4,6 +4,9 @@ import Alert from "./Alert";
 import Title from "./Title";
 const config = require("../ReactConfig");
 
+
+const alertClasses = "mt-3"
+
 export default class Profile extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +47,7 @@ export default class Profile extends Component {
           const date = new Date().toTimeString();
           const message = `An error has occured (${date}): [${response.status}] ${response.statusText}`;
           this.setState({
-            alert: <Alert message={message} type="danger" key={Math.random()} />
+            alert: <Alert message={message} type="danger" key={Math.random()} className={alertClasses}/>
           });
           this.render();
         } else {
@@ -58,7 +61,7 @@ export default class Profile extends Component {
           const date = new Date().toLocaleString();
           const message = `Details saved successfully (${date})`;
           this.setState({
-            alert: <Alert message={message} type="success" />
+            alert: <Alert message={message} type="success" className={alertClasses}/>
           });
         }
       });
