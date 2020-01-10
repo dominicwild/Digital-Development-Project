@@ -19,3 +19,12 @@
     position: absolute;
     left: calc(100% - 6em);
     top: -0.4em; }
+
+.goals .save-container {
+  display: flex; }
+  .goals .save-container .alert {
+    margin: 0px;
+    width: 100%; }
+  .goals .save-container .save-btn-container {
+    align-self: flex-start;
+    min-width: 9rem; }

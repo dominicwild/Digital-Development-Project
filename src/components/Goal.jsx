@@ -68,10 +68,10 @@ export default class Goal extends Component {
       .then(data => {
         console.log(data);
         if (data.n === 1) {
-          this.setState({ alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} /> });
+          this.setState({ alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} key={Math.random()}/> });
         } else {
           this.setState({
-            alert: <Alert type="danger" message={`An error has occured. The goal has not been saved. (${new Date().toTimeString()})`} />
+            alert: <Alert type="danger" message={`An error has occured. The goal has not been saved. (${new Date().toTimeString()})`} key={Math.random()}/>
           });
         }
       });
@@ -141,9 +141,11 @@ export default class Goal extends Component {
           </div>
 
           <div className="save-container">
-            <button className="btn btn-success save-btn" onClick={this.save}>
-              Save
-            </button>
+            <div className="save-btn-container mr-2">
+              <button className="btn btn-success save-btn" onClick={this.save}>
+                Save
+              </button>
+            </div>
             {this.state.alert}
           </div>
           {/* <button className="btn btn-success save-btn" onClick={this.save}>
