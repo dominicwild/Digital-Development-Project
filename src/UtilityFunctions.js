@@ -9,4 +9,12 @@ function ensureSet(list) {
     return Array.from(new Set(list))
 }
 
-module.exports = { randInt, ensureSet };
+/**
+ * A convenience function to turn a potentially undefined object into an empty string.
+ * @param {any} object Any object needed to echo to a string
+ */
+function e(object){
+  return object === undefined ? "" : object
+}
+
+module.exports = { randInt, ensureSet,e };

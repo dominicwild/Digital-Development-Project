@@ -51,3 +51,7 @@ Content-Type: application/json
             "startDate": 122
         }
 }
+
+###
+
+GET http://localhost:3001/api/ddr/goals/777

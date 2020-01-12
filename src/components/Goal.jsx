@@ -7,6 +7,13 @@ import Alert from "./Alert";
 require("bootstrap-datepicker");
 
 const user = require("../User");
+// const emptyGoal = {
+//   developmentArea: "",
+//   status: "",
+//   action: "",
+//   startDate: Date.now(),
+//   frequency: "Daily"
+// };
 
 export default class Goal extends Component {
   areaId = randInt();
@@ -19,21 +26,26 @@ export default class Goal extends Component {
     super(props);
 
     this.state = {
-      area: props.area,
       alert: ""
     };
   }
 
   componentDidMount() {
-    var date = new Date();
-    date.setDate(date.getDate() - 1);
+    let date;
+    if (this.props.goal.startDate) {
+      date = new Date(this.props.goal.startDate);
+    } else {
+      date = new Date();
+    }
 
     $(document.getElementById(this.dateId)).datepicker({
       todayBtn: "linked",
       clearBtn: true,
       todayHighlight: true,
-      startDate: date
+      startDate: new Date()
     });
+   
+    $(document.getElementById(this.dateId)).datepicker("setDate", date);
   }
 
   save = event => {
@@ -48,8 +60,6 @@ export default class Goal extends Component {
       employeeId: user.employeeId,
       goal: { developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
     };
-
-    console.log(requestBody);
 
     fetch("api/ddr/goal", {
       method: "PUT",
@@ -66,30 +76,36 @@ export default class Goal extends Component {
         }
       })
       .then(data => {
-        console.log(data);
         if (data.n === 1) {
-          this.setState({ alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} key={Math.random()}/> });
+          this.setState({
+            alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} key={Math.random()} />
+          });
         } else {
           this.setState({
-            alert: <Alert type="danger" message={`An error has occured. The goal has not been saved. (${new Date().toTimeString()})`} key={Math.random()}/>
+            alert: (
+              <Alert
+                type="danger"
+                message={`An error has occured. The goal has not been saved. (${new Date().toTimeString()})`}
+                key={Math.random()}
+              />
+            )
           });
         }
       });
   };
 
+  onChange = event => {
+    this.props.goalUpdate(this.props.goal.developmentArea, event);
+  };
+
   render() {
-    const areaState = !(this.state.area === undefined);
-    let areaText;
-    if (areaState) {
-      areaText = this.state.area;
-    } else {
-      areaText = "Personal Goal";
-    }
+    const areaState = this.props.required || false; //!(this.state.area === undefined);
+    const goal = this.props.goal;
 
     return (
       <div className="card mt-3">
         <div className="card-header">
-          <h5>{areaText}</h5>
+          <h5>{goal.developmentArea}</h5>
         </div>
         <div className="card-body">
           <div>
@@ -102,21 +118,31 @@ export default class Goal extends Component {
                 className="form-control"
                 id={this.areaId}
                 placeholder="Enter your development area"
-                value={this.state.area}
+                defaultValue={goal.developmentArea}
                 disabled={areaState}
+                name="developmentArea"
+                onChange={this.onChange}
               />
             </div>
             <div className="form-group">
               <label htmlFor={this.actionId} className="mr-2 mb-auto">
                 Action:
               </label>
-              <textarea type="text" className="form-control" id={this.actionId} placeholder="Enter your actions to develop in this area" />
+              <textarea
+                type="text"
+                className="form-control"
+                id={this.actionId}
+                placeholder="Enter your actions to develop in this area"
+                value={goal.action}
+                name="action"
+                onChange={this.onChange}
+              />
             </div>
             <div className="form-group">
               <label htmlFor={this.frequencyId} className="mr-2">
                 Frequency:
               </label>
-              <select type="text" className="form-control" id={this.frequencyId}>
+              <select type="text" className="form-control" id={this.frequencyId} name="frequency" value={goal.frequency} onChange={this.onChange}>
                 {frequency.map(item => {
                   return <option key={Math.random()}>{item}</option>;
                 })}
@@ -126,9 +152,14 @@ export default class Goal extends Component {
               <label htmlFor={this.statusId} className="mr-2">
                 Status:
               </label>
-              <select type="text" className="form-control" id={this.statusId}>
+              <select type="text" className="form-control" id={this.statusId} value={goal.status} name="status" onChange={this.onChange}>
                 {status.map(item => {
-                  return <option key={Math.random()}>{item}</option>;
+                  let selected = item === goal.status ? goal.status : "In Progress";
+                  return (
+                    <option key={Math.random()} defaultValue={selected}>
+                      {item}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -136,7 +167,7 @@ export default class Goal extends Component {
               <label htmlFor={this.dateId} className="mr-2">
                 Start Date:
               </label>
-              <input type="text" className="form-control" id={this.dateId} />
+              <input type="text" className="form-control" id={this.dateId} onChange={this.onChange} />
             </div>
           </div>
 

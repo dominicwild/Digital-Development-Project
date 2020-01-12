@@ -57,7 +57,7 @@ export default class Profile extends Component {
       .then(data => {
         if (data != null) {
           localStorage.setItemJSON(config.user, data);
-          console.log(localStorage.getItemJSON(config.user));
+   
           const date = new Date().toLocaleString();
           const message = `Details saved successfully (${date})`;
           this.setState({

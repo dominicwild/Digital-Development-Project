@@ -10,8 +10,9 @@
             "name": "Launch Chrome",
             "address": "localhost",
             "urlFilter": "http://localhost:3000/*",
+            "url":"http://localhost:3000",
             "webRoot": "${workspaceFolder}",
-            "runtimeExecutable": "G:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+            "runtimeExecutable": "G:\\Users\\Dominic\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe",
             "trace": true
         },
         {
@@ -20,7 +21,7 @@
             "name": "Attach to Chrome",
             "port": 9222,
             "webRoot": "${workspaceFolder}",
-            "urlFilter": "http://localhost:3000/*",
+            "urlFilter": "http://localhost:3000/*"
         },
        
         

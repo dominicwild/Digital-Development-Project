@@ -101,4 +101,8 @@ function insertGoal(employeeId, goal) {
   });
 }
 
-module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertGoal };
+function getGoals(id) {
+  return DDR.findOne({ employeeId: id }).select("goals").exec();
+}
+
+module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertGoal, getGoals };

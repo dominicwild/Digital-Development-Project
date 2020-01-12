@@ -91,7 +91,6 @@ router
     let body = req.body;
     let skill = { skill: body.newSkill };
     delete body["newSkill"];
-    console.log(body)
     DDRModel.update(body)
       .then(result => {
         res.send({ success: result }); //Send back response, THEN attempt to add new skill
@@ -112,6 +111,17 @@ router
       }).catch(err => {
         res.status(400).send(err)
       })
+  })
+
+  router
+  .route("/goals/:id")
+
+  .get(function(req,res){
+    DDRModel.getGoals(req.params.id).then(result => {
+      res.send(result)
+    }).catch(err => {
+      res.status(400).send(err)
+    })
   })
 
 module.exports = router;
