@@ -4,6 +4,7 @@ import { frequency, status } from "../ModelEnums/DDRModelEnums";
 import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
 import Alert from "./Alert";
+import SVG from "react-inlinesvg";
 require("bootstrap-datepicker");
 
 const user = require("../User");
@@ -105,13 +106,13 @@ export default class Goal extends Component {
 
     return (
       <div className="card mt-3">
-        <a data-toggle="collapse" href={"#" + collapseId}>
+        <a data-toggle="collapse" href={"#" + collapseId} class="collapsed">
           <div className="card-header">
+            <SVG className="icon arrow-down" src="./icons/arrow-down.svg" />
             <h5>{goal.developmentArea || "New Goal"}</h5>
           </div>
         </a>
         <div className="collapse" id={collapseId}>
-
           <div className="card-body">
             <div>
               <div className="form-group">
@@ -176,30 +177,16 @@ export default class Goal extends Component {
               </div>
             </div>
 
-          <div className="save-container">
-            <div className="save-btn-container mr-2">
-              <button className="btn btn-success save-btn" onClick={this.save}>
-                Save
-              </button>
+            <div className="save-container">
+              <div className="save-btn-container mr-2">
+                <button className="btn btn-success save-btn" onClick={this.save}>
+                  Save
+                </button>
+              </div>
+              {this.state.alert}
             </div>
-            {this.state.alert}
           </div>
-
-          </div>
-
         </div>
-
-        {/* <p>
-          <a data-toggle="collapse" href="#collapseExample">
-            Link with href
-          </a>
-        </p>
-        <div className="collapse" id="collapseExample">
-          <div className="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-            labore wes anderson cred nesciunt sapiente ea proident.
-          </div>
-        </div> */}
       </div>
     );
   }

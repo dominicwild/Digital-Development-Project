@@ -9,21 +9,50 @@ $card-header-color: rgba(
 .goals {
   .card {
     a {
+      $transition-time: 0.2s;
+
       color: inherit;
       text-decoration: inherit;
       cursor: pointer;
       transition-property: color, background-color;
-      transition-duration: 0.2s;
+      transition-duration: $transition-time;
       border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 
       .card-header {
         background-color: $card-header-color;
+        position: relative;
+
+        .arrow-down {
+          $arrow-width: 48px;
+          $arrow-height: $arrow-width;
+
+          position: absolute;
+          height: $arrow-height;
+          width: $arrow-width;
+          left: calc(98% - #{$arrow-width});
+          top: calc(50% - #{$arrow-height} / 2);
+          right: $arrow-width;
+          transition-property: fill, transform;
+          transition-duration: $transition-time;
+          transform: rotate(180deg)
+        }
+      }
+
+      &.collapsed {
+        .arrow-down {
+          $rotation: #{rotation} + 180;
+          transform: rotate(0deg);
+        }
       }
     }
 
     a:hover {
       color: white;
       background-color: rgba($color: $primary-color, $alpha: 1);
+
+      .arrow-down {
+        fill: white;
+      }
     }
 
     .form-group {

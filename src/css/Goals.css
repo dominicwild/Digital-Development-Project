@@ -6,11 +6,26 @@
   transition-duration: 0.2s;
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0; }
   .goals .card a .card-header {
-    background-color: rgba(29, 161, 242, 0.25); }
+    background-color: rgba(29, 161, 242, 0.25);
+    position: relative; }
+    .goals .card a .card-header .arrow-down {
+      position: absolute;
+      height: 48px;
+      width: 48px;
+      left: calc(98% - 48px);
+      top: calc(50% - 48px / 2);
+      right: 48px;
+      transition-property: fill, transform;
+      transition-duration: 0.2s;
+      transform: rotate(180deg); }
+  .goals .card a.collapsed .arrow-down {
+    transform: rotate(0deg); }
 
 .goals .card a:hover {
   color: white;
   background-color: #1da1f2; }
+  .goals .card a:hover .arrow-down {
+    fill: white; }
 
 .goals .card .form-group {
   display: flex;
