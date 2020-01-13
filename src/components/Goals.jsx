@@ -39,13 +39,19 @@ export default class Goals extends Component {
         goals[index].required = true;
       }
     }
+
+    for(let goal of goals){
+      if(goal._id === undefined){
+        goal.temp_id = Math.random()
+      }
+    }
     return goals;
   }
 
-  renderGoal = () => {
+  renderGoals = () => {
     if (this.state.goals) {
       return this.state.goals.map(goal => {
-        return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate} />;
+        return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate} key={goal._id || goal.temp_id} />;
       });
     } else {
       return "";
@@ -91,9 +97,15 @@ export default class Goals extends Component {
     this.getGoals();
   }
 
+  addGoal = (event) => {
+    const goals = document.findElementById("goals")
+    console.log(goals)
+  }
+
   render() {
     return (
-      <div className="goals">
+      <>
+      <div className="goals" id="goals">
         <div className="save-all-btn-container">
           <button className="btn btn-outline-success save-all-btn" onClick={this.saveAll}>
             Save All
@@ -101,8 +113,10 @@ export default class Goals extends Component {
         </div>
         <Title title="Goals" />
         {this.state.alert}
-        {this.renderGoal()}
+        {this.renderGoals()}
       </div>
+      <button className="btn btn-primary mt-3">Add Goal</button> 
+      </>
     );
   }
 }
