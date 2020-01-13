@@ -1,11 +1,29 @@
 @import "./Master";
 
 $label-width: 9rem;
+$card-header-color: rgba(
+  $color: $primary-color,
+  $alpha: 0.25
+);
 
 .goals {
   .card {
-    .card-header {
-      background-color: rgba($color: $primary-color, $alpha: 0.25);
+    a {
+      color: inherit;
+      text-decoration: inherit;
+      cursor: pointer;
+      transition-property: color, background-color;
+      transition-duration: 0.2s;
+      border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+
+      .card-header {
+        background-color: $card-header-color;
+      }
+    }
+
+    a:hover {
+      color: white;
+      background-color: rgba($color: $primary-color, $alpha: 1);
     }
 
     .form-group {

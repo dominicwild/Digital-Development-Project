@@ -1,5 +1,16 @@
-.goals .card .card-header {
-  background-color: rgba(29, 161, 242, 0.25); }
+.goals .card a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: pointer;
+  transition-property: color, background-color;
+  transition-duration: 0.2s;
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0; }
+  .goals .card a .card-header {
+    background-color: rgba(29, 161, 242, 0.25); }
+
+.goals .card a:hover {
+  color: white;
+  background-color: #1da1f2; }
 
 .goals .card .form-group {
   display: flex;

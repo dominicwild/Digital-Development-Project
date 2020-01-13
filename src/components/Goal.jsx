@@ -44,7 +44,7 @@ export default class Goal extends Component {
       todayHighlight: true,
       startDate: new Date()
     });
-   
+
     $(document.getElementById(this.dateId)).datepicker("setDate", date);
   }
 
@@ -101,75 +101,80 @@ export default class Goal extends Component {
   render() {
     const areaState = this.props.required || false; //!(this.state.area === undefined);
     const goal = this.props.goal;
+    const collapseId = "goal" + randInt();
 
     return (
       <div className="card mt-3">
-        <div className="card-header">
-          <h5>{goal.developmentArea || "New Goal"}</h5>
-        </div>
-        <div className="card-body">
-          <div>
-            <div className="form-group">
-              <label htmlFor={this.areaId} className="mr-2">
-                Development Area:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id={this.areaId}
-                placeholder="Enter your development area"
-                defaultValue={goal.developmentArea}
-                disabled={areaState}
-                name="developmentArea"
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor={this.actionId} className="mr-2 mb-auto">
-                Action:
-              </label>
-              <textarea
-                type="text"
-                className="form-control"
-                id={this.actionId}
-                placeholder="Enter your actions to develop in this area"
-                value={goal.action}
-                name="action"
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor={this.frequencyId} className="mr-2">
-                Frequency:
-              </label>
-              <select type="text" className="form-control" id={this.frequencyId} name="frequency" value={goal.frequency} onChange={this.onChange}>
-                {frequency.map(item => {
-                  return <option key={Math.random()}>{item}</option>;
-                })}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor={this.statusId} className="mr-2">
-                Status:
-              </label>
-              <select type="text" className="form-control" id={this.statusId} value={goal.status} name="status" onChange={this.onChange}>
-                {status.map(item => {
-                  let selected = item === goal.status ? goal.status : "In Progress";
-                  return (
-                    <option key={Math.random()} defaultValue={selected}>
-                      {item}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor={this.dateId} className="mr-2">
-                Start Date:
-              </label>
-              <input type="text" className="form-control" id={this.dateId} onChange={this.onChange} />
-            </div>
+        <a data-toggle="collapse" href={"#" + collapseId}>
+          <div className="card-header">
+            <h5>{goal.developmentArea || "New Goal"}</h5>
           </div>
+        </a>
+        <div className="collapse" id={collapseId}>
+
+          <div className="card-body">
+            <div>
+              <div className="form-group">
+                <label htmlFor={this.areaId} className="mr-2">
+                  Development Area:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id={this.areaId}
+                  placeholder="Enter your development area"
+                  defaultValue={goal.developmentArea}
+                  disabled={areaState}
+                  name="developmentArea"
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={this.actionId} className="mr-2 mb-auto">
+                  Action:
+                </label>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  id={this.actionId}
+                  placeholder="Enter your actions to develop in this area"
+                  value={goal.action}
+                  name="action"
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor={this.frequencyId} className="mr-2">
+                  Frequency:
+                </label>
+                <select type="text" className="form-control" id={this.frequencyId} name="frequency" value={goal.frequency} onChange={this.onChange}>
+                  {frequency.map(item => {
+                    return <option key={Math.random()}>{item}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor={this.statusId} className="mr-2">
+                  Status:
+                </label>
+                <select type="text" className="form-control" id={this.statusId} value={goal.status} name="status" onChange={this.onChange}>
+                  {status.map(item => {
+                    let selected = item === goal.status ? goal.status : "In Progress";
+                    return (
+                      <option key={Math.random()} defaultValue={selected}>
+                        {item}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor={this.dateId} className="mr-2">
+                  Start Date:
+                </label>
+                <input type="text" className="form-control" id={this.dateId} onChange={this.onChange} />
+              </div>
+            </div>
 
           <div className="save-container">
             <div className="save-btn-container mr-2">
@@ -179,7 +184,22 @@ export default class Goal extends Component {
             </div>
             {this.state.alert}
           </div>
+
+          </div>
+
         </div>
+
+        {/* <p>
+          <a data-toggle="collapse" href="#collapseExample">
+            Link with href
+          </a>
+        </p>
+        <div className="collapse" id="collapseExample">
+          <div className="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+            labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </div> */}
       </div>
     );
   }
