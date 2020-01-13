@@ -27,11 +27,29 @@ export default class Goal extends Component {
     super(props);
 
     this.state = {
-      alert: ""
+      alert: "",
+      goalId: "goal" + randInt()
     };
   }
 
   componentDidMount() {
+    this.initDate();
+    this.expand();
+  }
+
+  expand() {
+    if (this.props.goal.expand) {
+      const collapsable = "#" + this.state.goalId;
+      $(collapsable).collapse("show");
+      $(collapsable).on("shown.bs.collapse", event => {
+        console.log("Fire: ", this.state.goalId);
+        document.getElementById(this.state.goalId).scrollIntoView(true);
+        $(collapsable).off();
+      });
+    }
+  }
+
+  initDate() {
     let date;
     if (this.props.goal.startDate) {
       date = new Date(this.props.goal.startDate);
@@ -102,11 +120,11 @@ export default class Goal extends Component {
   render() {
     const areaState = this.props.required || false; //!(this.state.area === undefined);
     const goal = this.props.goal;
-    const collapseId = "goal" + randInt();
+    const collapseId = this.state.goalId;
 
     return (
       <div className="card mt-3">
-        <a data-toggle="collapse" href={"#" + collapseId} class="collapsed">
+        <a data-toggle="collapse" href={"#" + collapseId} className="collapsed">
           <div className="card-header">
             <SVG className="icon arrow-down" src="./icons/arrow-down.svg" />
             <h5>{goal.developmentArea || "New Goal"}</h5>

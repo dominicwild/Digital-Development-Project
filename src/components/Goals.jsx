@@ -40,8 +40,14 @@ export default class Goals extends Component {
       }
     }
 
+    goals = this.ensureId(goals);
+
+    return goals;
+  }
+
+  ensureId(goals) {
     for (let goal of goals) {
-      if (goal._id === undefined) {
+      if (goal._id === undefined && goal.temp_id === undefined) {
         goal.temp_id = Math.random();
       }
     }
@@ -50,7 +56,8 @@ export default class Goals extends Component {
 
   renderGoals = () => {
     if (this.state.goals) {
-      return this.state.goals.map(goal => {
+      const goals = this.ensureId(this.state.goals)
+      return goals.map(goal => {
         return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate} key={goal._id || goal.temp_id} />;
       });
     } else {
@@ -99,10 +106,14 @@ export default class Goals extends Component {
 
   addGoal = event => {
     const goals = this.state.goals;
+    for(let goal of goals){
+      delete goal.expand
+    }
     goals.push({
-      developmentArea: ""
-    })
-    this.setState({goals})
+      developmentArea: "",
+      expand: true
+    });
+    this.setState({ goals });
   };
 
   render() {

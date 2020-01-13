@@ -6,6 +6,11 @@ $card-header-color: rgba(
   $alpha: 0.25
 );
 
+
+html {
+  scroll-behavior: smooth;
+}
+
 .goals {
   .card {
     a {
