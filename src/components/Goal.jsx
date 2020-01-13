@@ -105,7 +105,7 @@ export default class Goal extends Component {
     return (
       <div className="card mt-3">
         <div className="card-header">
-          <h5>{goal.developmentArea}</h5>
+          <h5>{goal.developmentArea || "New Goal"}</h5>
         </div>
         <div className="card-body">
           <div>

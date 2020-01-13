@@ -40,9 +40,9 @@ export default class Goals extends Component {
       }
     }
 
-    for(let goal of goals){
-      if(goal._id === undefined){
-        goal.temp_id = Math.random()
+    for (let goal of goals) {
+      if (goal._id === undefined) {
+        goal.temp_id = Math.random();
       }
     }
     return goals;
@@ -84,11 +84,11 @@ export default class Goals extends Component {
         }
       })
       .then(data => {
-        const date = new Date().toLocaleTimeString()
-        if(data.success){
-          this.setState({alert: <Alert message={`[${date}] All goals successfully updated`} type="success" key={Math.random()}/>})
+        const date = new Date().toLocaleTimeString();
+        if (data.success) {
+          this.setState({ alert: <Alert message={`[${date}] All goals successfully updated`} type="success" key={Math.random()} /> });
         } else {
-          this.setState({alert: <Alert message={`[${date}] Goals were not successfully updated`} type="danger" key={Math.random()} />})
+          this.setState({ alert: <Alert message={`[${date}] Goals were not successfully updated`} type="danger" key={Math.random()} /> });
         }
       });
   };
@@ -97,25 +97,30 @@ export default class Goals extends Component {
     this.getGoals();
   }
 
-  addGoal = (event) => {
-    const goals = document.findElementById("goals")
-    console.log(goals)
-  }
+  addGoal = event => {
+    const goals = this.state.goals;
+    goals.push({
+      developmentArea: ""
+    })
+    this.setState({goals})
+  };
 
   render() {
     return (
       <>
-      <div className="goals" id="goals">
-        <div className="save-all-btn-container">
-          <button className="btn btn-outline-success save-all-btn" onClick={this.saveAll}>
-            Save All
-          </button>
+        <div className="goals">
+          <div className="save-all-btn-container">
+            <button className="btn btn-outline-success save-all-btn" onClick={this.saveAll}>
+              Save All
+            </button>
+          </div>
+          <Title title="Goals" />
+          {this.state.alert}
+          {this.renderGoals()}
         </div>
-        <Title title="Goals" />
-        {this.state.alert}
-        {this.renderGoals()}
-      </div>
-      <button className="btn btn-primary mt-3">Add Goal</button> 
+        <button className="btn btn-primary mt-3" onClick={this.addGoal}>
+          Add Goal
+        </button>
       </>
     );
   }
