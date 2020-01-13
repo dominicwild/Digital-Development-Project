@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Title from "./Title";
 import Goal from "./Goal";
 import "../css/Goals.css";
+import Alert from "./Alert";
 const user = require("../User");
 
 const requiredGoals = ["IT Professional", "Current Role", "DXC Employee"];
@@ -9,7 +10,7 @@ const requiredGoals = ["IT Professional", "Current Role", "DXC Employee"];
 export default class Goals extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { alert: "" };
   }
 
   async getGoals() {
@@ -44,7 +45,7 @@ export default class Goals extends Component {
   renderGoal = () => {
     if (this.state.goals) {
       return this.state.goals.map(goal => {
-        return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate}/>;
+        return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate} />;
       });
     } else {
       return "";
@@ -61,6 +62,31 @@ export default class Goals extends Component {
     });
   };
 
+  saveAll = event => {
+    fetch("/api/ddr/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ employeeId: user.employeeId, goals: this.state.goals })
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log(response.status + " " + response.statusText);
+        }
+      })
+      .then(data => {
+        const date = new Date().toLocaleTimeString()
+        if(data.success){
+          this.setState({alert: <Alert message={`[${date}] All goals successfully updated`} type="success" key={Math.random()}/>})
+        } else {
+          this.setState({alert: <Alert message={`[${date}] Goals were not successfully updated`} type="danger" key={Math.random()} />})
+        }
+      });
+  };
+
   componentDidMount() {
     this.getGoals();
   }
@@ -69,9 +95,12 @@ export default class Goals extends Component {
     return (
       <div className="goals">
         <div className="save-all-btn-container">
-          <button className="btn btn-outline-success save-all-btn">Save All</button>
+          <button className="btn btn-outline-success save-all-btn" onClick={this.saveAll}>
+            Save All
+          </button>
         </div>
         <Title title="Goals" />
+        {this.state.alert}
         {this.renderGoal()}
       </div>
     );
