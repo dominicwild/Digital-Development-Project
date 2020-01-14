@@ -8,11 +8,18 @@ import SideBar from "./components/SideBar";
 import Profile from "./components/Profile";
 import Skills from "./components/Skills";
 import Goals from "./components/Goals";
+import Home from "./components/Home";
 require("./LocalStorageJSON");
 require("./StringPrototypes");
 
 class App extends Component {
-  
+
+  constructor(props){
+    super(props);
+
+    
+  }
+
 
   randDates() {
     let dates = [];
@@ -36,6 +43,9 @@ class App extends Component {
         break;
       case "/goals":
         toRender = <Goals />;
+        break;
+      case "/":
+        toRender = <Home />;
         break;
       default:
     }
