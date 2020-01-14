@@ -101,8 +101,22 @@ function insertGoal(employeeId, goal) {
   });
 }
 
-function getGoals(id) {
-  return DDR.findOne({ employeeId: id }).select("goals").exec();
+function removeGoal(employeeId, goal) {
+  console.log(goal);
+  return DDR.updateOne(
+    {
+      employeeId: employeeId
+    },
+    {
+      $pull: { goals: { developmentArea: goal.developmentArea } }
+    }
+  );
 }
 
-module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertGoal, getGoals };
+function getGoals(id) {
+  return DDR.findOne({ employeeId: id })
+    .select("goals")
+    .exec();
+}
+
+module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertGoal, getGoals, removeGoal };

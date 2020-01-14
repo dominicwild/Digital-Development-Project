@@ -12,7 +12,7 @@
             "urlFilter": "http://localhost:3000/*",
             "url":"http://localhost:3000",
             "webRoot": "${workspaceFolder}",
-            "runtimeExecutable": "G:\\Users\\Dominic\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe",
+            "runtimeExecutable": "C:\\Users\\dwild8\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe",
             "trace": true
         },
         {

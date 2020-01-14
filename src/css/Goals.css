@@ -23,12 +23,11 @@ html {
       transform: rotate(180deg); }
   .goals .card a.collapsed .arrow-down {
     transform: rotate(0deg); }
-
-.goals .card a:hover {
-  color: white;
-  background-color: #1da1f2; }
-  .goals .card a:hover .arrow-down {
-    fill: white; }
+  .goals .card a:hover {
+    color: white;
+    background-color: #1da1f2; }
+    .goals .card a:hover .arrow-down {
+      fill: white; }
 
 .goals .card .form-group {
   display: flex;
@@ -39,7 +38,7 @@ html {
     margin-bottom: 0px; }
 
 .goals .card .save-btn {
-  width: 5em; }
+  margin-right: 5px; }
 
 .goals .save-all-btn-container {
   position: relative; }
@@ -49,11 +48,10 @@ html {
     left: calc(100% - 6em);
     top: -0.4em; }
 
-.goals .save-container {
-  display: flex; }
-  .goals .save-container .alert {
+.goals .button-container {
+  display: flex;
+  align-items: start;
+  height: 50px; }
+  .goals .button-container .alert {
     margin: 0px;
     width: 100%; }
-  .goals .save-container .save-btn-container {
-    align-self: flex-start;
-    min-width: 9rem; }

@@ -56,9 +56,9 @@ export default class Goals extends Component {
 
   renderGoals = () => {
     if (this.state.goals) {
-      const goals = this.ensureId(this.state.goals)
+      const goals = this.ensureId(this.state.goals);
       return goals.map(goal => {
-        return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate} key={goal._id || goal.temp_id} />;
+        return <Goal goal={goal} required={goal.required} goalUpdate={this.goalUpdate} deleteGoal={this.deleteGoal} key={goal._id || goal.temp_id} />;
       });
     } else {
       return "";
@@ -106,14 +106,50 @@ export default class Goals extends Component {
 
   addGoal = event => {
     const goals = this.state.goals;
-    for(let goal of goals){
-      delete goal.expand
+    for (let goal of goals) {
+      delete goal.expand;
     }
     goals.push({
       developmentArea: "",
       expand: true
     });
     this.setState({ goals });
+  };
+
+  deleteGoal = (area, event) => {
+    const goal = this.state.goals.filter(goal => goal.developmentArea === area)[0];
+    fetch("/api/ddr/goal/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ employeeId: user.employeeId, goal: { developmentArea: goal.developmentArea } })
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error(response.status + " " + response.statusText);
+        }
+      })
+      .then(data => {
+        const date = new Date().toLocaleTimeString();
+        console.log(data);
+        if (data.success) {
+          const goals = this.state.goals;
+          const index = goals.indexOf(goal)
+          console.log(index)
+          goals.splice(index,1)
+          this.setState({
+            alert: <Alert message={`[${date}] Goal ${goal.developmentArea} successfully deleted`} type="success" key={Math.random()} />,
+            goals: goals
+          });
+        } else {
+          this.setState({
+            alert: <Alert message={`[${date}] Goal ${goal.developmentArea} wasn't successfully deleted`} type="danger" key={Math.random()} />
+          });
+        }
+      });
   };
 
   render() {

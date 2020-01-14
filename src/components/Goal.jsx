@@ -113,6 +113,11 @@ export default class Goal extends Component {
       });
   };
 
+  delete = (event) => {
+    console.log(this.props.goal.developmentArea)
+    this.props.deleteGoal(this.props.goal.developmentArea, event);
+  };
+
   onChange = event => {
     this.props.goalUpdate(this.props.goal.developmentArea, event);
   };
@@ -195,12 +200,15 @@ export default class Goal extends Component {
               </div>
             </div>
 
-            <div className="save-container">
-              <div className="save-btn-container mr-2">
-                <button className="btn btn-success save-btn" onClick={this.save}>
-                  Save
-                </button>
-              </div>
+            <div className="button-container">
+              <button className="btn btn-success save-btn" onClick={this.save}>
+                Save
+              </button>
+
+              <button className="btn btn-danger delete-btn mr-3" onClick={this.delete}>
+                Delete
+              </button>
+
               {this.state.alert}
             </div>
           </div>

@@ -101,27 +101,43 @@ router
       });
   });
 
-  router
-  .route("/goal")
+router
+  .route("/goal/")
 
-  .put(function(req, res){
-    const body = req.body
-      DDRModel.insertGoal(body.employeeId,body.goal).then(result => {
-        res.send(result)
-      }).catch(err => {
-        res.status(400).send(err)
+  .put(function(req, res) {
+    const body = req.body;
+    DDRModel.insertGoal(body.employeeId, body.goal)
+      .then(result => {
+        res.send(result);
       })
+      .catch(err => {
+        res.status(400).send(err);
+      });
   })
 
-  router
+  .post(function(req, res) {
+    const body = req.body;
+    DDRModel.removeGoal(body.employeeId, body.goal)
+      .then(result => {
+        res.send({ success: true });
+      })
+      .catch(err => {
+        res.send(err);
+        console.log("Error in delete goal ", err);
+      });
+  });
+
+router
   .route("/goals/:id")
 
-  .get(function(req,res){
-    DDRModel.getGoals(req.params.id).then(result => {
-      res.send(result)
-    }).catch(err => {
-      res.status(400).send(err)
-    })
-  })
+  .get(function(req, res) {
+    DDRModel.getGoals(req.params.id)
+      .then(result => {
+        res.send(result);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  });
 
 module.exports = router;
