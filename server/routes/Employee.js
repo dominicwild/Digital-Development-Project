@@ -47,7 +47,7 @@ router
   })
 
   .put(function(req, res) {
-    EmployeeModel.update(req.body)
+    EmployeeModel.update(req.user._id, req.body)
       .then(result => {
         res.send(`${result.n} employee${result.n > 1 ? "s" : ""} has been updated`);
       })

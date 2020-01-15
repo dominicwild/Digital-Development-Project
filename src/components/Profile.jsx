@@ -4,8 +4,7 @@ import Alert from "./Alert";
 import Title from "./Title";
 const config = require("../ReactConfig");
 
-
-const alertClasses = "mt-3"
+const alertClasses = "mt-3";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ export default class Profile extends Component {
 
     //Insert employee into database
     fetch("/api/employee", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -47,7 +46,7 @@ export default class Profile extends Component {
           const date = new Date().toTimeString();
           const message = `An error has occured (${date}): [${response.status}] ${response.statusText}`;
           this.setState({
-            alert: <Alert message={message} type="danger" key={Math.random()} className={alertClasses}/>
+            alert: <Alert message={message} type="danger" key={Math.random()} className={alertClasses} />
           });
           this.render();
         } else {
@@ -57,57 +56,63 @@ export default class Profile extends Component {
       .then(data => {
         if (data != null) {
           localStorage.setItemJSON(config.user, data);
-   
+
           const date = new Date().toLocaleString();
           const message = `Details saved successfully (${date})`;
           this.setState({
-            alert: <Alert message={message} type="success" className={alertClasses}/>
+            alert: <Alert message={message} type="success" className={alertClasses} />
           });
         }
       });
   };
 
   render() {
-    let user
-    if(this.props.user){
-       user = this.props.user;
+    let user;
+    if (this.props.user) {
+      user = this.props.user;
     } else {
-       user = {
+      user = {
         firstName: "",
         lastName: "",
         email: "",
         employeeId: "",
         assignmentArea: "",
         ITXLevel: "1"
-      }
+      };
     }
     return (
       <div className="profile">
-        <Title title="Basic Details"/>
+        <Title title="Basic Details" />
         <form className="m-4">
           <div className="form-group">
             <label htmlFor="firstName">First Name: </label>
-            <input type="text" className="form-control" id="firstName" placeholder="Enter your first name" defaultValue={user.firstName}/>
+            <input type="text" className="form-control" id="firstName" placeholder="Enter your first name" defaultValue={user.firstName} />
           </div>
 
           <div className="form-group">
             <label htmlFor="lastName">Last Name: </label>
-            <input type="text" className="form-control" id="lastName" placeholder="Enter your last name" defaultValue={user.lastName}/>
+            <input type="text" className="form-control" id="lastName" placeholder="Enter your last name" defaultValue={user.lastName} />
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email: </label>
-            <input type="email" className="form-control" id="email" placeholder="Enter your work email" defaultValue={user.email}/>
+            <input type="email" className="form-control" id="email" placeholder="Enter your work email" defaultValue={user.email} />
           </div>
 
           <div className="form-group">
             <label htmlFor="employeeId">Employee ID: </label>
-            <input type="text" className="form-control" id="employeeId" placeholder="Enter your employee ID" defaultValue={user.employeeId}/>
+            <input type="text" className="form-control" id="employeeId" placeholder="Enter your employee ID" defaultValue={user.employeeId} />
           </div>
 
           <div className="form-group">
             <label htmlFor="assignmentArea">Assignment Area: </label>
-            <input type="text" className="form-control" id="assignmentArea" placeholder="Enter your assignment area" defaultValue={user.assignmentArea}/>
+            <input
+              type="text"
+              className="form-control"
+              id="assignmentArea"
+              placeholder="Enter your assignment area"
+              defaultValue={user.assignmentArea}
+            />
           </div>
 
           <div className="form-group">

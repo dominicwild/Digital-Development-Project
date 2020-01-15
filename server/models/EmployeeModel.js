@@ -36,8 +36,8 @@ function getByOutlookId(id) {
   return Employee.findOne({ outlookId: id }).exec();
 }
 
-function update(employee) {
-  return Employee.update({ employeeId: employee.employeeId }, employee);
+function update(id,employee) {
+  return Employee.findByIdAndUpdate(id, employee);
 }
 
 function destroy(id) {
