@@ -37,8 +37,8 @@ function get(id) {
   return DDR.findOne({ mongoId: id }).exec();
 }
 
-function update(ddr) {
-  return DDR.updateOne({ mongoId: ddr.mongoId }, ddr);
+function update(id,ddr) {
+  return DDR.updateOne({ mongoId: id }, ddr);
 }
 
 function destroy(id) {
@@ -83,7 +83,7 @@ function insertGoal(mongoId, goal) {
       mongoId: mongoId,
       "goals.developmentArea": goal.developmentArea
     },
-    { employeeId: employeeId, $set: { "goals.$": goal } },
+    { mongoId: mongoId, $set: { "goals.$": goal } },
     { upsert: true }
   ).catch(err => {
     if (err.code === 2) {

@@ -76,7 +76,6 @@ export default class Goal extends Component {
     const date = document.getElementById(this.dateId).value;
 
     const requestBody = {
-      employeeId: user.employeeId,
       goal: { developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
     };
 
@@ -113,8 +112,8 @@ export default class Goal extends Component {
       });
   };
 
-  delete = (event) => {
-    console.log(this.props.goal.developmentArea)
+  delete = event => {
+    console.log(this.props.goal.developmentArea);
     this.props.deleteGoal(this.props.goal.developmentArea, event);
   };
 

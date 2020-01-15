@@ -18,7 +18,7 @@ export default class Goals extends Component {
 
   getGoals = () => {
     console.log("Goals run");
-    fetch("/api/ddr/goals/" + user.employeeId)
+    fetch("/api/ddr/goals/", { method: "post" })
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -124,38 +124,43 @@ export default class Goals extends Component {
 
   deleteGoal = (area, event) => {
     const goal = this.state.goals.filter(goal => goal.developmentArea === area)[0];
-    fetch("/api/ddr/goal/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ employeeId: user.employeeId, goal: { developmentArea: goal.developmentArea } })
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.error(response.status + " " + response.statusText);
-        }
+    if (!goal.required) {
+      fetch("/api/ddr/goal/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ employeeId: user.employeeId, goal: { developmentArea: goal.developmentArea } })
       })
-      .then(data => {
-        const date = new Date().toLocaleTimeString();
-        console.log(data);
-        if (data.success) {
-          const goals = this.state.goals;
-          const index = goals.indexOf(goal);
-          console.log(index);
-          goals.splice(index, 1);
-          this.setState({
-            alert: <Alert message={`[${date}] Goal ${goal.developmentArea} successfully deleted`} type="success" key={Math.random()} />,
-            goals: goals
-          });
-        } else {
-          this.setState({
-            alert: <Alert message={`[${date}] Goal ${goal.developmentArea} wasn't successfully deleted`} type="danger" key={Math.random()} />
-          });
-        }
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            console.error(response.status + " " + response.statusText);
+          }
+        })
+        .then(data => {
+          const date = new Date().toLocaleTimeString();
+          if (data.success) {
+            const goals = this.state.goals;
+            const index = goals.indexOf(goal);
+            goals.splice(index, 1);
+            this.setState({
+              alert: <Alert message={`[${date}] Goal ${goal.developmentArea} successfully deleted`} type="success" key={Math.random()} />,
+              goals: goals
+            });
+          } else {
+            this.setState({
+              alert: <Alert message={`[${date}] Goal ${goal.developmentArea} wasn't successfully deleted`} type="danger" key={Math.random()} />
+            });
+          }
+        });
+    } else {
+      const date = new Date().toLocaleTimeString();
+      this.setState({
+        alert: <Alert message={`[${date}] Goal ${goal.developmentArea} cannot be deleted as it is a required goal.`} type="danger" key={Math.random()} />
       });
+    }
   };
 
   render() {

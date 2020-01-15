@@ -19,7 +19,7 @@ export default class SkillList extends Component {
   }
 
   setListItems = () => {
-    return fetch("/api/ddr/" + this.props.field + "/")
+    return fetch("/api/ddr/" + this.props.field + "/", { method: "post" })
       .then(response => {
         if (!response.ok) {
           console.log(response.status + " " + response.statusText);
@@ -28,17 +28,20 @@ export default class SkillList extends Component {
         }
       })
       .then(data => {
-        console.log("Data from setListItems", data);
-        console.log("/api/ddr/" + this.props.field + "/" + user.employeeId);
         if (data) {
           this.setState({ listItems: data[this.state.field] });
         }
       });
   };
 
+  validateItem = (toAdd) => {
+    console.log(toAdd.length)
+    return this.state.listItems.find(item => item.toLowerCase() === toAdd.toLowerCase()) || toAdd.length === 0;
+  }
+
   addItem = event => {
     const toAdd = document.getElementById(this.state.field).value.trim();
-    if (this.state.listItems.find(item => item.toLowerCase() === toAdd.toLowerCase())) {
+    if (this.validateItem(toAdd)) {
       console.log("Duplicated item attempted to be added");
     } else {
       let listItems = this.state.listItems;
@@ -85,9 +88,7 @@ export default class SkillList extends Component {
       listItems.splice(index, 1);
     }
 
-    let requestBody = {
-      employeeId: user.employeeId
-    };
+    let requestBody = {};
 
     requestBody[this.state.field] = listItems;
 
@@ -106,7 +107,7 @@ export default class SkillList extends Component {
         }
       })
       .then(data => {
-        console.log(data)
+        console.log(data);
         if (data.success) {
           this.setState({
             listItems: listItems

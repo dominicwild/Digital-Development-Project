@@ -12,9 +12,9 @@ const authCheck = require("../middleware/AuthCheck");
 
 mongoose.connect(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
-employeeRoutes.all("*", authCheck);
-ddrRoutes.all("*", authCheck);
-skillRoutes.all("*", authCheck);
+// employeeRoutes.all("*", authCheck);
+// ddrRoutes.all("*", authCheck);
+// skillRoutes.all("*", authCheck);
 
 router.use("/employee", employeeRoutes);
 router.use("/skill", skillRoutes);

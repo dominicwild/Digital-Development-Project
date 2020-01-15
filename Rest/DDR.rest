@@ -65,3 +65,9 @@ Content-Type: "application/json"
     "employeeId": 777,
     "newSkill": "aaa"
 }
+
+###
+
+GET http://localhost:3001/api/ddr/opportunities
+Content-Type: "application/json"
+

@@ -18,9 +18,9 @@ app.use(cookieSession({
   keys: [config.cookieKey]
 }))
 
-app.all("/api/employee/*", authCheck);
-app.all("/api/skill/*", authCheck);
-app.all("/api/ddr/*", authCheck);
+// app.all("/api/employee/*", authCheck);
+// app.all("/api/skill/*", authCheck);
+// app.all("/api/ddr/*", authCheck);
 
 //Passport initialisation
 app.use(passport.initialize());

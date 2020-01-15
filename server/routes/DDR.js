@@ -34,7 +34,7 @@ router
 router
   .route("/strengths/")
 
-  .get(function(req, res) {
+  .post(function(req, res) {
     DDRModel.getStrengths(req.user._id)
       .then(ddr => {
         res.send(ddr);
@@ -50,7 +50,7 @@ router
 router
   .route("/opportunities/")
 
-  .get(function(req, res) {
+  .post(function(req, res) {
     DDRModel.getOpportunities(req.user._id)
       .then(ddr => {
         res.send(ddr);
@@ -74,7 +74,7 @@ router
   })
 
   .put(function(req, res) {
-    DDRModel.update(req.body)
+    DDRModel.update(req.user._id, req.body)
       .then(result => {
         res.send({ success: result.n === 1, message: `${result.n} DDR${result.n > 1 ? "s" : ""} has been updated` });
       })
@@ -90,14 +90,14 @@ router
   .put(function(req, res) {
     const ddr = req.body;
     const skill = { skill: ddr.newSkill };
-    ddr.mongoId = req.user._id;
     delete ddr["newSkill"];
-    DDRModel.update(ddr)
+    DDRModel.update(req.user._id,ddr)
       .then(result => {
         res.send({ success: result }); //Send back response, THEN attempt to add new skill
         SkillModel.create(skill);
       })
       .catch(err => {
+        console.log(err);
         res.status(400).send(err);
       });
   });
@@ -106,8 +106,9 @@ router
   .route("/goal/")
 
   .put(function(req, res) {
+    console.log(req.body)
     const body = req.body;
-    DDRModel.insertGoal(body.employeeId, body.goal)
+    DDRModel.insertGoal(req.user._id, body.goal)
       .then(result => {
         res.send(result);
       })
@@ -118,7 +119,7 @@ router
 
   .post(function(req, res) {
     const body = req.body;
-    DDRModel.removeGoal(body.employeeId, body.goal)
+    DDRModel.removeGoal(req.user._id, body.goal)
       .then(result => {
         res.send({ success: true });
       })
@@ -129,10 +130,10 @@ router
   });
 
 router
-  .route("/goals/:id")
+  .route("/goals/")
 
-  .get(function(req, res) {
-    DDRModel.getGoals(req.params.id)
+  .post(function(req, res) {
+    DDRModel.getGoals(req.user._id)
       .then(result => {
         if (result) {
           res.send(result);
