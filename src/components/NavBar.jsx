@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../css/Navbar.css";
+import SVG from "react-inlinesvg";
 const user = require("../User");
 
 export default class NavBar extends Component {
@@ -28,7 +29,7 @@ export default class NavBar extends Component {
       <>
         <nav className="navbar navbar-dark bg-primary">
           <a className="navbar-brand" href="/">
-            Navbar
+            <SVG src="/icons/DXC_Technology_logo.svg" />
           </a>
           <this.LoggedIn />
         </nav>
