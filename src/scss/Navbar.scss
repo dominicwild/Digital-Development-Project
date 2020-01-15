@@ -1,6 +1,14 @@
+@import "./Master";
+
 .navbar {
-    span {
-        font-size: 1.5em;
-        color: white;
-    }
+  span {
+    font-size: 1.5em;
+    color: white;
+  }
+  a:not(.navbar-brand) {
+    color: white;
+    background-color: lighten($color: $primary-color, $amount: 0.75);
+    padding: 5px;
+    border-radius: 5px;
+  }
 }

@@ -1,3 +1,9 @@
 .navbar span {
   font-size: 1.5em;
   color: white; }
+
+.navbar a:not(.navbar-brand) {
+  color: white;
+  background-color: #21a3f2;
+  padding: 5px;
+  border-radius: 5px; }

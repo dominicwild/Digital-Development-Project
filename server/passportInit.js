@@ -33,16 +33,27 @@ passport.use(
         alias: profile.alias,
         email: profile.emails[0].value,
         accessToken: accessToken,
-        refreshToken: refreshToken
+        refreshToken: refreshToken,
+        outlookId: profile.id
       };
 
-      EmployeeModel.create(user)
-        .then(user => {
-          done(null, user);
-        })
-        .catch(err => {
-          done(err, user);
-        });
+      console.log("Refresh Token: ", user.outlookId);
+      EmployeeModel.getByOutlookId(user.outlookId).then(result => {
+        console.log(result);
+        if (result === null) {
+          EmployeeModel.create(user)
+            .then(user => {
+              console.log(user)
+              done(null, user);
+            })
+            .catch(err => {
+              done(err, result);
+            });
+        } else {
+          console.log(result);
+          done(null, result);
+        }
+      });
     }
   )
 );

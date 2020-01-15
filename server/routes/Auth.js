@@ -13,7 +13,12 @@ router.get(
 router.get("/outlook/callback", passport.authenticate("windowslive", { failureRedirect: "/login" }), function(req, res) {
   // Successful authentication, redirect home.
   res.redirect("http://localhost:3000/");
-  console.log("Authenticated: ", req.user.firstName)
+  console.log("Authenticated: ", req.user.firstName);
+});
+
+router.get("/logout", function(req, res) {
+  req.logOut();
+  res.redirect("http://localhost:3000/login");
 });
 
 module.exports = router;

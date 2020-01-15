@@ -8,7 +8,8 @@ const EmployeeSchema = new mongoose.Schema({
   email: { type: String, required: true, trim: true },
   ITXLevel: { type: Number, enum: [1, 2, 3] },
   assignmentArea: { type: String, trim: true },
-  isManager: { type: Boolean, default: false }
+  isManager: { type: Boolean, default: false },
+  outlookId: { type: String, required: true }
 });
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
@@ -26,6 +27,10 @@ function getById(id) {
   return Employee.findById(id).exec();
 }
 
+function getByOutlookId(id) {
+  return Employee.findOne({ outlookId: id }).exec();
+}
+
 function update(employee) {
   return Employee.update({ employeeId: employee.employeeId }, employee);
 }
@@ -34,4 +39,4 @@ function destroy(id) {
   return Employee.deleteOne({ employeeId: id });
 }
 
-module.exports = { create, get, getById, update, destroy, Employee };
+module.exports = { create, get, getById, getByOutlookId, update, destroy, Employee };

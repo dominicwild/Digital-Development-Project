@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const SkillModel = require("../models/SkillModel");
+const authCheck = require("../middleware/AuthCheck");
 
 /**
  * Skill Routes
@@ -50,5 +51,4 @@ router
       });
   });
 
-
-  module.exports = router
+module.exports = router;

@@ -2,36 +2,36 @@ import React, { Component } from "react";
 import "../css/Navbar.css";
 const user = require("../User");
 
-const LoggedIn = () => {
-    if (user != null) {
-        return <span>
-          Logged in as:{" "}
-          <b>
-            {user.firstName} {user.lastName}
-          </b>
-        </span>;
-    } else {
-        return ""
-    }
-}
-
 export default class NavBar extends Component {
-  
-  
-    render() {
+  LoggedIn = () => {
+    if (this.props.user) {
+      const user = this.props.user;
+      return (
+        <>
+          <span>
+            Logged in as:{" "}
+            <b>
+              {user.firstName || ""} {user.lastName || ""}
+            </b>
+          </span>
+          <a href="http://localhost:3001/api/auth/logout">Logout</a>
+        </>
+      );
+    } else {
+      return <a href="/login">Login</a>;
+    }
+  };
 
+  render() {
     return (
       <>
         <nav className="navbar navbar-dark bg-primary">
           <a className="navbar-brand" href="/">
             Navbar
           </a>
-          <LoggedIn />
+          <this.LoggedIn />
         </nav>
       </>
     );
   }
 }
-
-
-

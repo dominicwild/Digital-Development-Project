@@ -79,7 +79,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar user={this.state.user}/>
         <div className="container-fluid p-0">
           <div className="d-flex">
             <div className="sidebar-sticky sidebar">

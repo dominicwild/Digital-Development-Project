@@ -7,8 +7,8 @@ const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", required: true, index: true, unique: true },
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
-  strengths: { type: [String], set: ensureSet },
-  opportunities: { type: [String], set: ensureSet },
+  strengths: { type: [String], set: ensureSet, default: [] },
+  opportunities: { type: [String], set: ensureSet, default: [] },
   goals: [
     {
       developmentArea: { type: String, trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal goals
