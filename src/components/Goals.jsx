@@ -10,10 +10,14 @@ const requiredGoals = ["IT Professional", "Current Role", "DXC Employee"];
 export default class Goals extends Component {
   constructor(props) {
     super(props);
-    this.state = { alert: "" };
+    const initialGoals = requiredGoals.map(goal => {
+      return { developmentArea: goal, required: true };
+    });
+    this.state = { alert: "", goals: initialGoals };
   }
 
-  async getGoals() {
+  getGoals = () => {
+    console.log("Goals run");
     fetch("/api/ddr/goals/" + user.employeeId)
       .then(response => {
         if (response.ok) {
@@ -23,10 +27,12 @@ export default class Goals extends Component {
         }
       })
       .then(result => {
-        const goals = this.formatGoals(result.goals);
-        this.setState({ goals: goals });
+        if (result.goals) {
+          const goals = this.formatGoals(result.goals);
+          this.setState({ goals: goals });
+        }
       });
-  }
+  };
 
   formatGoals(goals) {
     for (let area of requiredGoals) {
@@ -137,9 +143,9 @@ export default class Goals extends Component {
         console.log(data);
         if (data.success) {
           const goals = this.state.goals;
-          const index = goals.indexOf(goal)
-          console.log(index)
-          goals.splice(index,1)
+          const index = goals.indexOf(goal);
+          console.log(index);
+          goals.splice(index, 1);
           this.setState({
             alert: <Alert message={`[${date}] Goal ${goal.developmentArea} successfully deleted`} type="success" key={Math.random()} />,
             goals: goals

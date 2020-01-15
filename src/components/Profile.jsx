@@ -68,38 +68,51 @@ export default class Profile extends Component {
   };
 
   render() {
+    let user
+    if(this.props.user){
+       user = this.props.user;
+    } else {
+       user = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        employeeId: "",
+        assignmentArea: "",
+        ITXLevel: "1"
+      }
+    }
     return (
       <div className="profile">
         <Title title="Basic Details"/>
         <form className="m-4">
           <div className="form-group">
             <label htmlFor="firstName">First Name: </label>
-            <input type="text" className="form-control" id="firstName" placeholder="Enter your first name" />
+            <input type="text" className="form-control" id="firstName" placeholder="Enter your first name" defaultValue={user.firstName}/>
           </div>
 
           <div className="form-group">
             <label htmlFor="lastName">Last Name: </label>
-            <input type="text" className="form-control" id="lastName" placeholder="Enter your last name" />
+            <input type="text" className="form-control" id="lastName" placeholder="Enter your last name" defaultValue={user.lastName}/>
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email: </label>
-            <input type="email" className="form-control" id="email" placeholder="Enter your work email" />
+            <input type="email" className="form-control" id="email" placeholder="Enter your work email" defaultValue={user.email}/>
           </div>
 
           <div className="form-group">
             <label htmlFor="employeeId">Employee ID: </label>
-            <input type="text" className="form-control" id="employeeId" placeholder="Enter your employee ID" />
+            <input type="text" className="form-control" id="employeeId" placeholder="Enter your employee ID" defaultValue={user.employeeId}/>
           </div>
 
           <div className="form-group">
             <label htmlFor="assignmentArea">Assignment Area: </label>
-            <input type="text" className="form-control" id="assignmentArea" placeholder="Enter your assignment area" />
+            <input type="text" className="form-control" id="assignmentArea" placeholder="Enter your assignment area" defaultValue={user.assignmentArea}/>
           </div>
 
           <div className="form-group">
             <label htmlFor="ITXLevel">ITX Level: </label>
-            <select className="form-control" id="ITXLevel" placeholder="Enter your employee ID">
+            <select className="form-control" id="ITXLevel" placeholder="Enter your employee ID" defaultValue={user.ITXLevel}>
               <option value="1">I</option>
               <option value="2">T</option>
               <option value="3">X</option>

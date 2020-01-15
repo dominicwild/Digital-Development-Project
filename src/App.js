@@ -9,17 +9,38 @@ import Profile from "./components/Profile";
 import Skills from "./components/Skills";
 import Goals from "./components/Goals";
 import Home from "./components/Home";
+import Login from "./components/Login";
 require("./LocalStorageJSON");
 require("./StringPrototypes");
 
-class App extends Component {
+const whoAmIDelay = 1000 * 60 * 30; //30 minutes
 
-  constructor(props){
+class App extends Component {
+  constructor(props) {
     super(props);
 
-    
+    this.state = {}
+    this.whoami();
   }
 
+  whoami = () => {
+    fetch("/api/whoami")
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error(response.status + " " + response.statusText);
+        }
+      })
+      .then(user => {
+        setTimeout(this.whoami, whoAmIDelay);
+        if (user) {
+          this.setState({ user });
+        } else {
+          window.location = "/login"
+        }
+      });
+  };
 
   randDates() {
     let dates = [];
@@ -32,11 +53,11 @@ class App extends Component {
     return dates;
   }
 
-  route() {
+  route = () => {
     let toRender = null;
     switch (window.location.pathname) {
       case "/profile":
-        toRender = <Profile />;
+        toRender = <Profile user={this.state.user}/>;
         break;
       case "/skills":
         toRender = <Skills />;
@@ -46,6 +67,9 @@ class App extends Component {
         break;
       case "/":
         toRender = <Home />;
+        break;
+      case "/login":
+        toRender = <Login />;
         break;
       default:
     }

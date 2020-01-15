@@ -16,4 +16,21 @@ router.use("/skill", skillRoutes);
 router.use("/ddr", ddrRoutes);
 router.use("/auth", authRoutes);
 
+router.get("/whoami", function(req, res) {
+  const user = req.user;
+  if (user) {
+    res.send({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      employeeId: user.employeeId,
+      assignmentArea: user.assignmentArea,
+      ITXLevel: user.ITXLevel,
+      loggedOn: true
+    });
+  } else {
+    res.send({ loggedOn: false });
+  }
+});
+
 module.exports = router;

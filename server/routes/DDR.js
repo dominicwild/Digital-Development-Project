@@ -133,7 +133,11 @@ router
   .get(function(req, res) {
     DDRModel.getGoals(req.params.id)
       .then(result => {
-        res.send(result);
+        if (result) {
+          res.send(result);
+        } else {
+          res.send([{none: true}]);
+        }
       })
       .catch(err => {
         res.status(400).send(err);
