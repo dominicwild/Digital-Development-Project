@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { user: {loggedOn: false} };
+    this.state = { user: { loggedOn: false } };
     this.whoami();
   }
 
@@ -57,7 +57,7 @@ class App extends Component {
     let toRender = null;
     switch (window.location.pathname) {
       case "/profile":
-        toRender = <Profile user={this.state.user} />;
+        toRender = <Profile user={this.state.user} onChange={this.onChange}/>;
         break;
       case "/skills":
         toRender = <Skills />;
@@ -74,6 +74,14 @@ class App extends Component {
       default:
     }
     return toRender;
+  };
+
+  onChange = event => {
+    const target = event.target;
+    const user = this.state.user;
+    user[target.name] = target.value;
+    console.log({ [target.name]: target.value });
+    this.setState(user);
   };
 
   render() {

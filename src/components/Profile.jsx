@@ -10,7 +10,8 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      alert: ""
+      alert: "",
+      ITXLevel: this.props.user.ITXLevel
     };
   }
 
@@ -30,7 +31,7 @@ export default class Profile extends Component {
       email: email,
       employeeId: employeeId,
       assignmentArea: assignmentArea,
-      ITXLevel: ITXLevel
+      ITXLevel: +ITXLevel
     };
 
     //Insert employee into database
@@ -54,16 +55,20 @@ export default class Profile extends Component {
         }
       })
       .then(data => {
-        if (data != null) {
+        if (data.success) {
           localStorage.setItemJSON(config.user, data);
 
           const date = new Date().toLocaleString();
           const message = `Details saved successfully (${date})`;
           this.setState({
-            alert: <Alert message={message} type="success" className={alertClasses} />
+            alert: <Alert message={message} type="success" className={alertClasses} key={Math.random()} />
           });
         }
       });
+  };
+
+  handleOnChange = event => {
+    this.props.onChange(event);
   };
 
   render() {
@@ -77,9 +82,10 @@ export default class Profile extends Component {
         email: "",
         employeeId: "",
         assignmentArea: "",
-        ITXLevel: "1"
+        ITXLevel: null
       };
     }
+
     return (
       <div className="profile">
         <Title title="Basic Details" />
@@ -117,7 +123,14 @@ export default class Profile extends Component {
 
           <div className="form-group">
             <label htmlFor="ITXLevel">ITX Level: </label>
-            <select className="form-control" id="ITXLevel" placeholder="Enter your employee ID" defaultValue={user.ITXLevel}>
+            <select
+              className="form-control"
+              id="ITXLevel"
+              name="ITXLevel"
+              placeholder="Enter your ITX Level"
+              value={user.ITXLevel}
+              onChange={this.handleOnChange}
+            >
               <option value="1">I</option>
               <option value="2">T</option>
               <option value="3">X</option>

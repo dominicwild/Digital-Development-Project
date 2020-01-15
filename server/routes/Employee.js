@@ -49,7 +49,8 @@ router
   .put(function(req, res) {
     EmployeeModel.update(req.user._id, req.body)
       .then(result => {
-        res.send(`${result.n} employee${result.n > 1 ? "s" : ""} has been updated`);
+        // res.send(`${result.n} employee${result.n > 1 ? "s" : ""} has been updated`);
+        res.send({ success: true });
       })
       .catch(err => {
         res.status(400).send(err);
