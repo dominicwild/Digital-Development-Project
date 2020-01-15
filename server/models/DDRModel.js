@@ -1,10 +1,12 @@
 const mongoose = require("../mongo");
 const Skill = require("./SkillModel");
+const ObjectId =mongoose.Schema.Types.ObjectId
 const { frequency, status } = require("../../src/ModelEnums/DDRModelEnums");
 const { ensureSet } = require("../../src/UtilityFunctions");
 
 const DDRSchema = new mongoose.Schema({
-  employeeId: { type: String, ref: "Employee", required: true, index: true, unique: true },
+  employeeId: { type: String, ref: "Employee", index: true, unique: true },
+  mongoId: {type: ObjectId, ref: "Employee", required: true},
   aspirationShort: { type: String, trim: true },
   aspirationLong: { type: String, trim: true },
   strengths: { type: [String], set: ensureSet, default: [] },
@@ -32,11 +34,11 @@ function create(ddr) {
 }
 
 function get(id) {
-  return DDR.findOne({ employeeId: id }).exec();
+  return DDR.findOne({ mongoId: id }).exec();
 }
 
 function update(ddr) {
-  return DDR.updateOne({ employeeId: ddr.employeeId }, ddr);
+  return DDR.updateOne({ mongoId: ddr.mongoId }, ddr);
 }
 
 function destroy(id) {
@@ -44,13 +46,13 @@ function destroy(id) {
 }
 
 function getStrengths(id) {
-  return DDR.findOne({ employeeId: id })
+  return DDR.findOne({ mongoId: id })
     .select("strengths")
     .exec();
 }
 
 function getOpportunities(id) {
-  return DDR.findOne({ employeeId: id })
+  return DDR.findOne({ mongoId: id })
     .select("opportunities")
     .exec();
 }
@@ -58,7 +60,7 @@ function getOpportunities(id) {
 function updateSkills(ddr) {
   const newSkill = { skill: ddr.newSkill };
   delete ddr["newSkill"];
-  return DDR.updateOne({ employeeId: ddr.employeeId }, ddr)
+  return DDR.updateOne({ mongoId: ddr.mongoId }, ddr)
     .exec()
     .then(result => {
       if (result.n === 1) {
@@ -75,10 +77,10 @@ function updateSkills(ddr) {
  * @param {Integer} employeeId The Id of the employee to add the goal to
  * @param {any} goal The goal to add to the DDR that corresponds to the employee ID
  */
-function insertGoal(employeeId, goal) {
+function insertGoal(mongoId, goal) {
   return DDR.updateOne(
     {
-      employeeId: employeeId,
+      mongoId: mongoId,
       "goals.developmentArea": goal.developmentArea
     },
     { employeeId: employeeId, $set: { "goals.$": goal } },
@@ -88,7 +90,7 @@ function insertGoal(employeeId, goal) {
       //Means the search query for development area did not find a match
       return DDR.update(
         {
-          employeeId: employeeId
+          mongoId: mongoId
         },
         {
           $push: { goals: goal }
@@ -101,11 +103,11 @@ function insertGoal(employeeId, goal) {
   });
 }
 
-function removeGoal(employeeId, goal) {
+function removeGoal(mongoId, goal) {
   console.log(goal);
   return DDR.updateOne(
     {
-      employeeId: employeeId
+      mongoId: mongoId
     },
     {
       $pull: { goals: { developmentArea: goal.developmentArea } }
@@ -114,7 +116,7 @@ function removeGoal(employeeId, goal) {
 }
 
 function getGoals(id) {
-  return DDR.findOne({ employeeId: id })
+  return DDR.findOne({ mongoId: id })
     .select("goals")
     .exec();
 }

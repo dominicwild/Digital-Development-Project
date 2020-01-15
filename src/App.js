@@ -19,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = { user: {loggedOn: false} };
     this.whoami();
   }
 
@@ -37,7 +37,7 @@ class App extends Component {
         if (user) {
           this.setState({ user });
         } else {
-          window.location = "/login"
+          window.location = "/login";
         }
       });
   };
@@ -57,7 +57,7 @@ class App extends Component {
     let toRender = null;
     switch (window.location.pathname) {
       case "/profile":
-        toRender = <Profile user={this.state.user}/>;
+        toRender = <Profile user={this.state.user} />;
         break;
       case "/skills":
         toRender = <Skills />;
@@ -74,12 +74,12 @@ class App extends Component {
       default:
     }
     return toRender;
-  }
+  };
 
   render() {
     return (
       <>
-        <NavBar user={this.state.user}/>
+        <NavBar user={this.state.user} />
         <div className="container-fluid p-0">
           <div className="d-flex">
             <div className="sidebar-sticky sidebar">

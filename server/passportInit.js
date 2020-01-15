@@ -37,9 +37,9 @@ passport.use(
         outlookId: profile.id
       };
 
-      console.log("Refresh Token: ", user.outlookId);
+      
       EmployeeModel.getByOutlookId(user.outlookId).then(result => {
-        console.log(result);
+        
         if (result === null) {
           EmployeeModel.create(user)
             .then(user => {

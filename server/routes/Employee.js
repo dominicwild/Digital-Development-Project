@@ -35,9 +35,6 @@ router
     EmployeeModel.create(req.body)
       .then(savedEmployee => {
         res.send(savedEmployee);
-        DDRModel.create({ employeeId: savedEmployee.employeeId }).catch(err => {
-          console.error(err);
-        });
       })
       .catch(err => {
         if (err.name === "MongoError") {

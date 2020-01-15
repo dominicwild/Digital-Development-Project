@@ -4,7 +4,8 @@ const user = require("../User");
 
 export default class NavBar extends Component {
   LoggedIn = () => {
-    if (this.props.user) {
+    
+    if (this.props.user.loggedOn) {
       const user = this.props.user;
       return (
         <>

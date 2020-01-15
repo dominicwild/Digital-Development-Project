@@ -9,7 +9,7 @@ const nocache = require('nocache');
 const authCheck = require("./middleware/AuthCheck")
 
 const app = express();
-app.use(nocache()); //Remove in production
+//app.use(nocache()); //Remove in production
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(bodyParser.json());

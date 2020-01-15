@@ -16,7 +16,12 @@ const Employee = mongoose.model("Employee", EmployeeSchema);
 Employee.init();
 
 function create(employee) {
-  return Employee.create(employee);
+  return Employee.create(employee).then(savedEmployee => {
+    DDRModel.create({ mongoId: savedEmployee._id }).catch(err => {
+      console.error(err);
+    });
+    return savedEmployee;
+  });
 }
 
 function get(id) {

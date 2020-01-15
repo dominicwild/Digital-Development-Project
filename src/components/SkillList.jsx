@@ -19,7 +19,7 @@ export default class SkillList extends Component {
   }
 
   setListItems = () => {
-    return fetch("/api/ddr/" + this.props.field + "/" + user.employeeId)
+    return fetch("/api/ddr/" + this.props.field + "/")
       .then(response => {
         if (!response.ok) {
           console.log(response.status + " " + response.statusText);
@@ -30,7 +30,9 @@ export default class SkillList extends Component {
       .then(data => {
         console.log("Data from setListItems", data);
         console.log("/api/ddr/" + this.props.field + "/" + user.employeeId);
-        this.setState({ listItems: data[this.state.field] });
+        if (data) {
+          this.setState({ listItems: data[this.state.field] });
+        }
       });
   };
 
@@ -43,7 +45,6 @@ export default class SkillList extends Component {
       listItems.push(toAdd);
 
       let requestBody = {
-        employeeId: user.employeeId,
         newSkill: toAdd
       };
       requestBody[this.state.field] = listItems;
@@ -64,7 +65,7 @@ export default class SkillList extends Component {
           }
         })
         .then(data => {
-          console.log(data)
+          console.log(data);
           if (data.success) {
             this.setState(listItems);
             document.getElementById(this.state.field).value = "";
@@ -105,6 +106,7 @@ export default class SkillList extends Component {
         }
       })
       .then(data => {
+        console.log(data)
         if (data.success) {
           this.setState({
             listItems: listItems
@@ -116,7 +118,6 @@ export default class SkillList extends Component {
   };
 
   addItemKeyPress = event => {
-    console.log(event);
     if (event.key === "Enter") {
       this.addItem(event);
     }
@@ -128,7 +129,13 @@ export default class SkillList extends Component {
         <div className="form-group d-flex m-3 justify-content-center align-items-center">
           <label htmlFor="lastName">{this.state.labelText}: </label>
           <div className="input-group">
-            <input type="text" className="form-control" placeholder={this.state.placeholderText} id={this.state.field} onKeyPress={this.addItemKeyPress} />
+            <input
+              type="text"
+              className="form-control"
+              placeholder={this.state.placeholderText}
+              id={this.state.field}
+              onKeyPress={this.addItemKeyPress}
+            />
             <div className="input-group-append">
               <button className="btn btn-primary add-btn m-0 p-0" type="button" onClick={this.addItem}>
                 <SVG className="icon" src="/icons/add.svg" />

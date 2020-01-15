@@ -32,10 +32,10 @@ router
  * Gets the strengths at a particular Employee ID
  */
 router
-  .route("/strengths/:id")
+  .route("/strengths/")
 
   .get(function(req, res) {
-    DDRModel.getStrengths(req.params.id)
+    DDRModel.getStrengths(req.user._id)
       .then(ddr => {
         res.send(ddr);
       })
@@ -48,10 +48,10 @@ router
  * Gets the opportunities at a particular Employee ID
  */
 router
-  .route("/opportunities/:id")
+  .route("/opportunities/")
 
   .get(function(req, res) {
-    DDRModel.getOpportunities(req.params.id)
+    DDRModel.getOpportunities(req.user._id)
       .then(ddr => {
         res.send(ddr);
       })
@@ -88,10 +88,11 @@ router
   .route("/skills/")
 
   .put(function(req, res) {
-    let body = req.body;
-    let skill = { skill: body.newSkill };
-    delete body["newSkill"];
-    DDRModel.update(body)
+    const ddr = req.body;
+    const skill = { skill: ddr.newSkill };
+    ddr.mongoId = req.user._id;
+    delete ddr["newSkill"];
+    DDRModel.update(ddr)
       .then(result => {
         res.send({ success: result }); //Send back response, THEN attempt to add new skill
         SkillModel.create(skill);
@@ -136,7 +137,7 @@ router
         if (result) {
           res.send(result);
         } else {
-          res.send([{none: true}]);
+          res.send([{ none: true }]);
         }
       })
       .catch(err => {
