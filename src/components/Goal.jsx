@@ -94,6 +94,7 @@ export default class Goal extends Component {
         }
       })
       .then(data => {
+        console.log(data)
         if (data.n === 1) {
           this.setState({
             alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} key={Math.random()} />

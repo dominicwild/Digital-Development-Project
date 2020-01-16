@@ -1,12 +1,12 @@
 const mongoose = require("../mongo");
 const Skill = require("./SkillModel");
-const ObjectId =mongoose.Schema.Types.ObjectId
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const { frequency, status } = require("../../src/ModelEnums/DDRModelEnums");
 const { ensureSet } = require("../../src/UtilityFunctions");
 
 const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", index: true, unique: true },
-  mongoId: {type: ObjectId, ref: "Employee", required: true},
+  mongoId: { type: ObjectId, ref: "Employee", required: true },
   strengths: { type: [String], set: ensureSet, default: [] },
   opportunities: { type: [String], set: ensureSet, default: [] },
   goals: [
@@ -35,7 +35,7 @@ function get(id) {
   return DDR.findOne({ mongoId: id }).exec();
 }
 
-function update(id,ddr) {
+function update(id, ddr) {
   return DDR.updateOne({ mongoId: id }, ddr);
 }
 
@@ -95,14 +95,22 @@ function insertGoal(mongoId, goal) {
         },
         { upsert: true }
       );
+    } else if (err.code === 11000) {
+      console.log(err)
+      return DDR.updateOne(
+        {
+          mongoId: mongoId,
+          "goals.developmentArea": goal.developmentArea
+        },
+        { $set: { "goals.$": goal } }
+      );
     } else {
-      throw result;
+      throw err;
     }
   });
 }
 
 function removeGoal(mongoId, goal) {
-  
   return DDR.updateOne(
     {
       mongoId: mongoId

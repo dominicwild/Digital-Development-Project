@@ -11,7 +11,9 @@ const config = require("../config");
 const authCheck = require("../middleware/AuthCheck");
 const CheckList = require("../Other/CheckList");
 
-mongoose.connect(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => {
+  console.log(err);
+});
 
 // employeeRoutes.all("*", authCheck);
 // ddrRoutes.all("*", authCheck);
