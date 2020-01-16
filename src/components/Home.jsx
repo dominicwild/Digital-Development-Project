@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SVG from "react-inlinesvg";
 import "../css/Home.css";
 import CheckList from "./CheckList";
+import Title from "./Title";
 
 class Home extends Component {
   constructor(props) {
@@ -29,14 +30,15 @@ class Home extends Component {
         return <CheckList table={checkList} />
       })
     } else {
-      return "a";
+      return "";
     }
   };
 
   render() {
     return (
       <div className="home">
-        {/* <SVG src="/icons/DXC_Technology_logo.svg" className="brand mb-5" /> */}
+        <Title title="Summary" />
+        <p>Down below is a check list of details that have or have not been filled in yet.</p>
         {this.renderCheckLists()}
       </div>
     );
