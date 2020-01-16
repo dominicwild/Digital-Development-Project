@@ -80,7 +80,6 @@ class App extends Component {
     const target = event.target;
     const user = this.state.user;
     user[target.name] = target.value;
-    console.log({ [target.name]: target.value });
     this.setState(user);
   };
 

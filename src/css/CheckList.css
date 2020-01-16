@@ -1,0 +1,15 @@
+.checklist tr .status {
+  text-align: center;
+  width: 1em;
+  font-size: 2em;
+  padding: 4px; }
+
+.checklist tr td {
+  vertical-align: middle;
+  font-size: 1.5em; }
+
+.checklist.table-list tbody .table-list-row::before {
+  content: "";
+  background-color: black;
+  display: table-cell;
+  border: black solid 1px; }

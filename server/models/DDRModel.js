@@ -102,7 +102,7 @@ function insertGoal(mongoId, goal) {
 }
 
 function removeGoal(mongoId, goal) {
-  console.log(goal);
+  
   return DDR.updateOne(
     {
       mongoId: mongoId

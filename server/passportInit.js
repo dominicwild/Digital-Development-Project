@@ -43,14 +43,14 @@ passport.use(
         if (result === null) {
           EmployeeModel.create(user)
             .then(user => {
-              console.log(user)
+              
               done(null, user);
             })
             .catch(err => {
               done(err, result);
             });
         } else {
-          console.log(result);
+          
           done(null, result);
         }
       });
