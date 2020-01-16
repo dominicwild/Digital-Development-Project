@@ -7,6 +7,8 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {};
+
     fetch("/api/checklist")
       .then(response => {
         if (response.ok) {
@@ -20,21 +22,22 @@ class Home extends Component {
       });
   }
 
-  // renderCheckLists = () => {
-  //   if (this.state.checkLists) {
-  //     this.state.checkLists.map(checkList => {
-
-  //     })
-  //   } else {
-  //     return "";
-  //   }
-  // };
+  renderCheckLists = () => {
+    console.log(this.state)
+    if (this.state.checkLists) {
+      return this.state.checkLists.map(checkList => {
+        return <CheckList table={checkList} />
+      })
+    } else {
+      return "a";
+    }
+  };
 
   render() {
     return (
       <div className="home">
         {/* <SVG src="/icons/DXC_Technology_logo.svg" className="brand mb-5" /> */}
-        <CheckList />
+        {this.renderCheckLists()}
       </div>
     );
   }
