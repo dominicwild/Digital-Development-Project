@@ -24,6 +24,8 @@ export default class Profile extends Component {
     const employeeId = document.getElementById("employeeId").value;
     const assignmentArea = document.getElementById("assignmentArea").value;
     const ITXLevel = document.getElementById("ITXLevel").value;
+    const aspirationShort = document.getElementById("aspirationShort").value;
+    const aspirationLong = document.getElementById("aspirationLong").value;
 
     const employee = {
       firstName: firstName,
@@ -31,7 +33,9 @@ export default class Profile extends Component {
       email: email,
       employeeId: employeeId,
       assignmentArea: assignmentArea,
-      ITXLevel: +ITXLevel
+      ITXLevel: +ITXLevel,
+      aspirationShort: aspirationShort,
+      aspirationLong: aspirationLong
     };
 
     //Insert employee into database
@@ -101,7 +105,7 @@ export default class Profile extends Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email: </label>
+            <label htmlFor="email">Work Email: </label>
             <input type="email" className="form-control" id="email" placeholder="Enter your work email" defaultValue={user.email} />
           </div>
 
@@ -118,6 +122,32 @@ export default class Profile extends Component {
               id="assignmentArea"
               placeholder="Enter your assignment area"
               defaultValue={user.assignmentArea}
+            />
+          </div>
+
+          <div className="form-group align-items-start">
+            <label htmlFor="aspirationShort">Short-term Aspiration: </label>
+            <textarea
+              type="text"
+              className="form-control"
+              id="aspirationShort"
+              placeholder="Enter your short-term aspiration"
+              value={user.aspirationShort}
+              name="aspirationShort"
+              onChange={this.handleOnChange}
+            />
+          </div>
+
+          <div className="form-group align-items-start">
+            <label htmlFor="aspirationLong">Long-term Aspiration: </label>
+            <textarea
+              type="text"
+              className="form-control"
+              id="aspirationLong"
+              placeholder="Enter your long-term aspiration"
+              value={user.aspirationLong}
+              name="aspirationLong"
+              onChange={this.handleOnChange}
             />
           </div>
 

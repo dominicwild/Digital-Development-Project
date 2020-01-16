@@ -23,6 +23,7 @@ router.use("/auth", authRoutes);
 
 router.get("/whoami", function(req, res) {
   const user = req.user;
+  console.log(user)
   if (user) {
     res.send({
       firstName: user.firstName,
@@ -31,6 +32,8 @@ router.get("/whoami", function(req, res) {
       employeeId: user.employeeId,
       assignmentArea: user.assignmentArea,
       ITXLevel: user.ITXLevel,
+      aspirationShort: user.aspirationShort,
+      aspirationLong: user.aspirationLong,
       loggedOn: true
     });
   } else {

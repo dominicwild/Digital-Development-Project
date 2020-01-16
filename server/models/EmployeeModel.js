@@ -8,6 +8,8 @@ const EmployeeSchema = new mongoose.Schema({
   email: { type: String, required: true, trim: true },
   ITXLevel: { type: Number, enum: [1, 2, 3] },
   assignmentArea: { type: String, trim: true },
+  aspirationShort: { type: String, trim: true },
+  aspirationLong: { type: String, trim: true },
   isManager: { type: Boolean, default: false },
   outlookId: { type: String, required: true }
 });

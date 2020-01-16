@@ -7,8 +7,6 @@ const { ensureSet } = require("../../src/UtilityFunctions");
 const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", index: true, unique: true },
   mongoId: {type: ObjectId, ref: "Employee", required: true},
-  aspirationShort: { type: String, trim: true },
-  aspirationLong: { type: String, trim: true },
   strengths: { type: [String], set: ensureSet, default: [] },
   opportunities: { type: [String], set: ensureSet, default: [] },
   goals: [
