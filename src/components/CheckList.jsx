@@ -33,7 +33,7 @@ class CheckList extends Component {
       let className = list[field] === true ? "table-success" : "table-danger";
       toRender.push(
         <tr className={className + " " + extraClass} key={Math.random()}>
-          <td scope="row" className="status">
+          <td className="status">
             {list[field] === true ? "✔️" : "❌"}
           </td>
           <td>{fieldNameToText(field)}</td>

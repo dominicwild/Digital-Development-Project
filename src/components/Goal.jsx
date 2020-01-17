@@ -42,7 +42,6 @@ export default class Goal extends Component {
       const collapsable = "#" + this.state.goalId;
       $(collapsable).collapse("show");
       $(collapsable).on("shown.bs.collapse", event => {
-        console.log("Fire: ", this.state.goalId);
         document.getElementById(this.state.goalId).scrollIntoView(true);
         $(collapsable).off();
       });
@@ -94,7 +93,6 @@ export default class Goal extends Component {
         }
       })
       .then(data => {
-        console.log(data)
         if (data.n === 1) {
           this.setState({
             alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} key={Math.random()} />
@@ -114,7 +112,6 @@ export default class Goal extends Component {
   };
 
   delete = event => {
-    console.log(this.props.goal.developmentArea);
     this.props.deleteGoal(this.props.goal.developmentArea, event);
   };
 

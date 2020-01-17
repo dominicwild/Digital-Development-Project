@@ -23,7 +23,6 @@ class Home extends Component {
   }
 
   renderCheckLists = () => {
-    console.log(this.state);
     if (this.state.checkLists) {
       return this.state.checkLists.map(checkList => {
         return <CheckList table={checkList} key={Math.random()} />;

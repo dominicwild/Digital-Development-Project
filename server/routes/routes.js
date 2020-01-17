@@ -15,10 +15,6 @@ mongoose.connect(config.connectionString, { useNewUrlParser: true, useUnifiedTop
   console.log(err);
 });
 
-// employeeRoutes.all("*", authCheck);
-// ddrRoutes.all("*", authCheck);
-// skillRoutes.all("*", authCheck);
-
 router.use("/employee", employeeRoutes);
 router.use("/skill", skillRoutes);
 router.use("/ddr", ddrRoutes);

@@ -24,10 +24,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.all("/api/employee/*", authCheck);
-app.all("/api/skill/*", authCheck);
-app.all("/api/ddr/*", authCheck);
-
 app.use("/api", routes);
 
 app.get("/api/greeting", (req, res) => {

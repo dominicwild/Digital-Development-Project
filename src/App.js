@@ -34,12 +34,9 @@ class App extends Component {
       })
       .then(user => {
         setTimeout(this.whoami, whoAmIDelay);
-        console.log(user);
-        console.log("redirect: ", window.location.pathname !== "/login")
         if (user.loggedOn) {
           this.setState({ user });
         } else if (window.location.pathname !== "/login") {
-          console.log("In redirect")
           window.location = "/login";
         }
       });

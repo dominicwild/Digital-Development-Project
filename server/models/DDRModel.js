@@ -96,7 +96,7 @@ function insertGoal(mongoId, goal) {
         { upsert: true }
       );
     } else if (err.code === 11000) {
-      console.log(err)
+      console.error(err)
       return DDR.updateOne(
         {
           mongoId: mongoId,

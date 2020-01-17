@@ -50,7 +50,7 @@ html {
 
 .goals .button-container {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   height: 50px; }
   .goals .button-container .alert {
     margin: 0px;

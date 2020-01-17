@@ -17,7 +17,6 @@ export default class Goals extends Component {
   }
 
   getGoals = () => {
-    console.log("Goals run");
     fetch("/api/ddr/goals/", { method: "post" })
       .then(response => {
         if (response.ok) {

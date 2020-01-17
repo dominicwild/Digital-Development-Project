@@ -22,7 +22,7 @@ export default class SkillList extends Component {
     return fetch("/api/ddr/" + this.props.field + "/", { method: "post" })
       .then(response => {
         if (!response.ok) {
-          console.log(response.status + " " + response.statusText);
+          console.error(response.status + " " + response.statusText);
         } else {
           return response.json();
         }
@@ -35,14 +35,13 @@ export default class SkillList extends Component {
   };
 
   validateItem = (toAdd) => {
-    console.log(toAdd.length)
     return this.state.listItems.find(item => item.toLowerCase() === toAdd.toLowerCase()) || toAdd.length === 0;
   }
 
   addItem = event => {
     const toAdd = document.getElementById(this.state.field).value.trim();
     if (this.validateItem(toAdd)) {
-      console.log("Duplicated item attempted to be added");
+      console.warn("Duplicated item attempted to be added");
     } else {
       let listItems = this.state.listItems;
       listItems.push(toAdd);
@@ -68,7 +67,6 @@ export default class SkillList extends Component {
           }
         })
         .then(data => {
-          console.log(data);
           if (data.success) {
             this.setState(listItems);
             document.getElementById(this.state.field).value = "";
@@ -81,8 +79,6 @@ export default class SkillList extends Component {
     const options = document.getElementById(this.state.field + "list").selectedOptions;
     let listItems = this.state.listItems;
 
-    console.log(options);
-    console.log(options[1]);
     for (let option of options) {
       const index = listItems.indexOf(option.value);
       listItems.splice(index, 1);
@@ -107,7 +103,6 @@ export default class SkillList extends Component {
         }
       })
       .then(data => {
-        console.log(data);
         if (data.success) {
           this.setState({
             listItems: listItems
@@ -115,7 +110,6 @@ export default class SkillList extends Component {
         }
       });
 
-    console.log(options);
   };
 
   addItemKeyPress = event => {
