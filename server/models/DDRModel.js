@@ -6,7 +6,7 @@ const { ensureSet } = require("../../src/UtilityFunctions");
 
 const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", index: true, unique: true },
-  mongoId: { type: ObjectId, ref: "Employee", required: true },
+  mongoId: { type: ObjectId, ref: "Employee", unique: true },
   strengths: { type: [String], set: ensureSet, default: [] },
   opportunities: { type: [String], set: ensureSet, default: [] },
   goals: [
@@ -96,13 +96,13 @@ function insertGoal(mongoId, goal) {
         { upsert: true }
       );
     } else if (err.code === 11000) {
-      console.error(err)
+      console.error(err);
       return DDR.updateOne(
         {
           mongoId: mongoId,
-          "goals.developmentArea": goal.developmentArea
+          //"goals.developmentArea": goal.developmentArea
         },
-        { $set: { "goals.$": goal } }
+        { $push: { "goals": goal } }
       );
     } else {
       throw err;
