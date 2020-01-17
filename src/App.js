@@ -90,7 +90,7 @@ class App extends Component {
         <div className="container-fluid p-0">
           <div className="d-flex">
             <div className="sidebar-sticky sidebar">
-              <SideBar />
+              <SideBar user={this.state.user} />
             </div>
             <div className="main-content m-4">{this.route()}</div>
           </div>

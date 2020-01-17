@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../css/Navbar.css";
 import SVG from "react-inlinesvg";
-//const user = require("../User");
 
 export default class NavBar extends Component {
   LoggedIn = () => {
@@ -16,11 +15,11 @@ export default class NavBar extends Component {
               {user.firstName || ""} {user.lastName || ""}
             </b>
           </span>
-          <a href="http://localhost:3001/api/auth/logout">Logout</a>
+          <a className="btn btn-primary" href="http://localhost:3001/api/auth/logout">Logout</a>
         </>
       );
     } else {
-      return <a href="/login">Login</a>;
+      return <a className="btn btn-primary" href="/login">Login</a>;
     }
   };
 

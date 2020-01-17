@@ -5,11 +5,18 @@
     font-size: 1.5em;
     color: white;
   }
+
   a:not(.navbar-brand) {
     color: white;
-    background-color: lighten($color: $primary-color, $amount: 0.75);
+    transition: background-color 0.2s;
+    background-color: lighten($color: $primary-color, $amount: 0.8);
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 10px;
+    width: 5em;
+  
+    &:hover {
+      background-color: adjust-hue($primary-color, 50deg);
+    }
   }
 
   .navbar-brand #path5899,

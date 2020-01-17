@@ -3,6 +3,11 @@ import SVG from "react-inlinesvg";
 
 const navItems = [
   {
+    name: "Checklist",
+    icon: "/icons/list.svg",
+    pathName: "/"
+  },
+  {
     name: "Basic Details",
     icon: "/icons/person.svg",
     pathName: "profile"
@@ -25,8 +30,9 @@ export default class SideBar extends Component {
   renderNavItems() {
     return navItems.map(item => {
       const highlighted = item.pathName === pathRoot ? "highlight" : ""
+      const disabled = this.props.user.loggedOn === false ? "disabled" : ""
       return (
-        <li className={`nav-item ${highlighted}`} key={Math.random()}>
+        <li className={`nav-item ${highlighted} ${disabled}`} key={Math.random()}>
           <a className= "nav-link px-0" href={item.pathName}>
             <SVG className="mr-2 icon" src={item.icon} />
             <span>{item.name}</span>

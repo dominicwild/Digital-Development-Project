@@ -9,7 +9,7 @@
   background: rgba(168, 165, 165, 0.315);
   top: 0;
 
-  .nav-item:hover {
+  .nav-item:not(.disabled):hover {
     color: $primary-color;
     cursor: pointer;
 
@@ -29,6 +29,17 @@
 
     a {
       color: black;
+    }
+  }
+
+  .nav-item.disabled {
+    $opacity: 0.5;
+    opacity: $opacity;
+    a {
+      cursor: not-allowed;
+    }
+    svg {
+      opacity: $opacity;
     }
   }
 

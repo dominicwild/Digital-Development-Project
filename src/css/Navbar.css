@@ -4,9 +4,13 @@
 
 .navbar a:not(.navbar-brand) {
   color: white;
+  transition: background-color 0.2s;
   background-color: #21a3f2;
   padding: 5px;
-  border-radius: 5px; }
+  border-radius: 10px;
+  width: 5em; }
+  .navbar a:not(.navbar-brand):hover {
+    background-color: #4b1df2; }
 
 .navbar .navbar-brand #path5899,
 .navbar .navbar-brand #path5901 {

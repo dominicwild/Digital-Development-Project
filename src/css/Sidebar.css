@@ -5,12 +5,12 @@
   height: calc(100vh);
   background: rgba(168, 165, 165, 0.315);
   top: 0; }
-  .sidebar .nav-item:hover {
+  .sidebar .nav-item:not(.disabled):hover {
     color: #1DA1F2;
     cursor: pointer; }
-    .sidebar .nav-item:hover svg {
+    .sidebar .nav-item:not(.disabled):hover svg {
       fill: #1DA1F2; }
-    .sidebar .nav-item:hover span {
+    .sidebar .nav-item:not(.disabled):hover span {
       color: #1DA1F2; }
   .sidebar .nav-item {
     display: flex;
@@ -18,6 +18,12 @@
     align-items: center; }
     .sidebar .nav-item a {
       color: black; }
+  .sidebar .nav-item.disabled {
+    opacity: 0.5; }
+    .sidebar .nav-item.disabled a {
+      cursor: not-allowed; }
+    .sidebar .nav-item.disabled svg {
+      opacity: 0.5; }
   .sidebar .nav-item.highlight svg {
     fill: #1DA1F2; }
   .sidebar .nav-item.highlight span {
