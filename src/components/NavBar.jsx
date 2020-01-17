@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../css/Navbar.css";
 import SVG from "react-inlinesvg";
-const user = require("../User");
+//const user = require("../User");
 
 export default class NavBar extends Component {
   LoggedIn = () => {

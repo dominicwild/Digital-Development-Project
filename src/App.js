@@ -34,9 +34,12 @@ class App extends Component {
       })
       .then(user => {
         setTimeout(this.whoami, whoAmIDelay);
-        if (user) {
+        console.log(user);
+        console.log("redirect: ", window.location.pathname !== "/login")
+        if (user.loggedOn) {
           this.setState({ user });
-        } else {
+        } else if (window.location.pathname !== "/login") {
+          console.log("In redirect")
           window.location = "/login";
         }
       });
@@ -57,7 +60,7 @@ class App extends Component {
     let toRender = null;
     switch (window.location.pathname) {
       case "/profile":
-        toRender = <Profile user={this.state.user} onChange={this.onChange}/>;
+        toRender = <Profile user={this.state.user} onChange={this.onChange} />;
         break;
       case "/skills":
         toRender = <Skills />;

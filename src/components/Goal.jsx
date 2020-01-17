@@ -7,7 +7,7 @@ import Alert from "./Alert";
 import SVG from "react-inlinesvg";
 require("bootstrap-datepicker");
 
-const user = require("../User");
+//const user = require("../User");
 // const emptyGoal = {
 //   developmentArea: "",
 //   status: "",

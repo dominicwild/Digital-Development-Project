@@ -3,9 +3,7 @@ import "../css/CheckList.css";
 import { fieldNameToText } from "../UtilityFunctions";
 
 class CheckList extends Component {
-  constructor(props) {
-    super(props);
-  }
+ 
 
   renderTableData = () => {
     const list = this.props.table.list;
@@ -13,7 +11,7 @@ class CheckList extends Component {
       let toRender = [];
       for (let item of list) {
         toRender.push(
-          <tr className="table-secondary list-header">
+          <tr className="table-secondary list-header" key={Math.random()}>
             <th scope="col" colSpan="3">
               <h3 className="m-0">{item.name}</h3>
             </th>
@@ -34,7 +32,7 @@ class CheckList extends Component {
     for (let field in list) {
       let className = list[field] === true ? "table-success" : "table-danger";
       toRender.push(
-        <tr className={className + " " + extraClass}>
+        <tr className={className + " " + extraClass} key={Math.random()}>
           <td scope="row" className="status">
             {list[field] === true ? "✔️" : "❌"}
           </td>

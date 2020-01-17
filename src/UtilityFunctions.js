@@ -53,6 +53,8 @@ function fieldNameToText(fieldName) {
       return "Start Date";
     case "status":
       return "Status";
+    default:
+      return "";
   }
 }
 

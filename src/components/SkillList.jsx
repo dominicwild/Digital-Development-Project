@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SVG from "react-inlinesvg";
-const user = require("../User");
+//const user = require("../User");
 
 export default class SkillList extends Component {
   constructor(props) {

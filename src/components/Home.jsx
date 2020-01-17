@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SVG from "react-inlinesvg";
 import "../css/Home.css";
 import CheckList from "./CheckList";
 import Title from "./Title";
@@ -24,11 +23,11 @@ class Home extends Component {
   }
 
   renderCheckLists = () => {
-    console.log(this.state)
+    console.log(this.state);
     if (this.state.checkLists) {
       return this.state.checkLists.map(checkList => {
-        return <CheckList table={checkList} />
-      })
+        return <CheckList table={checkList} key={Math.random()} />;
+      });
     } else {
       return "";
     }
