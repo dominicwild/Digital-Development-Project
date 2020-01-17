@@ -62,7 +62,7 @@ class App extends Component {
       case "/skills":
         toRender = <Skills />;
         break;
-      case "/goals":
+      case "/routines":
         toRender = <Goals />;
         break;
       case "/":

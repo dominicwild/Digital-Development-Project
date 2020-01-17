@@ -18,9 +18,9 @@ const navItems = [
     pathName: "skills"
   },
   {
-    name: "Goals",
+    name: "Routines",
     icon: "/icons/goal.svg",
-    pathName: "goals"
+    pathName: "routines"
   }
 ];
 

@@ -5,7 +5,7 @@ import "../css/Goals.css";
 import Alert from "./Alert";
 const user = require("../User");
 
-const requiredGoals = ["IT Professional", "Current Role", "DXC Employee"];
+const requiredGoals = ["IT Professional", "Current Role", "Future Role", "DXC Employee"];
 
 export default class Goals extends Component {
   constructor(props) {
