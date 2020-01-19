@@ -34,7 +34,7 @@ class App extends Component {
       })
       .then(user => {
         setTimeout(this.whoami, whoAmIDelay);
-        if (user.loggedOn) {
+        if (user && user.loggedOn) {
           this.setState({ user });
         } else if (window.location.pathname !== "/login") {
           window.location = "/login";

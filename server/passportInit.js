@@ -37,20 +37,16 @@ passport.use(
         outlookId: profile.id
       };
 
-      
       EmployeeModel.getByOutlookId(user.outlookId).then(result => {
-        
         if (result === null) {
           EmployeeModel.create(user)
             .then(user => {
-              
               done(null, user);
             })
             .catch(err => {
               done(err, result);
             });
         } else {
-          
           done(null, result);
         }
       });
