@@ -13,7 +13,7 @@ const navItems = [
     pathName: "profile"
   },
   {
-    name: "Skills",
+    name: "Opportunities",
     icon: "/icons/skill.svg",
     pathName: "skills"
   },
