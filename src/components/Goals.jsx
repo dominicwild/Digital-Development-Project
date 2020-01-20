@@ -171,7 +171,7 @@ export default class Goals extends Component {
               Save All
             </button>
           </div>
-          <Title title="Goals" />
+          <Title title="Routines" />
           {this.state.alert}
           {this.renderGoals()}
         </div>

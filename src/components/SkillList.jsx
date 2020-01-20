@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import SVG from "react-inlinesvg";
-//const user = require("../User");
 
 export default class SkillList extends Component {
   constructor(props) {
@@ -122,7 +121,7 @@ export default class SkillList extends Component {
     return (
       <>
         <div className="form-group d-flex m-3 justify-content-center align-items-center">
-          <label htmlFor="lastName">{this.state.labelText}: </label>
+          <label htmlFor={this.props.field}>{this.state.labelText}: </label>
           <div className="input-group">
             <input
               type="text"
@@ -130,6 +129,7 @@ export default class SkillList extends Component {
               placeholder={this.state.placeholderText}
               id={this.state.field}
               onKeyPress={this.addItemKeyPress}
+              name={this.props.field}
             />
             <div className="input-group-append">
               <button className="btn btn-primary add-btn m-0 p-0" type="button" onClick={this.addItem}>
