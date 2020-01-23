@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "employeeId": "777",
-    "goals": [
+    "routines": [
         {
             "developmentArea": "Test", 
             "action":  "Do it", 
@@ -17,12 +17,12 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/api/ddr/goal
+PUT http://localhost:3001/api/ddr/routine
 Content-Type: application/json
 
 {
     "employeeId": "777",
-    "goal": 
+    "routine": 
         {
             "developmentArea": "Test", 
             "action":  "Do it some more", 
@@ -36,12 +36,12 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/api/ddr/goal
+PUT http://localhost:3001/api/ddr/routine
 Content-Type: application/json
 
 {
     "employeeId": "777",
-    "goal": 
+    "routine": 
         {
             "developmentArea": "Testaa", 
             "action":  "Some real action", 
@@ -54,7 +54,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3001/api/ddr/goals/777
+GET http://localhost:3001/api/ddr/routines/777
 
 ###
 

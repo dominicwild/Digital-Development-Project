@@ -19,17 +19,21 @@ const navItems = [
   },
   {
     name: "Routines",
-    icon: "/icons/goal.svg",
+    icon: "/icons/routine.svg",
     pathName: "routines"
   }
 ];
 
-const pathRoot = window.location.pathname.split("/")[1]
+let pathRoot = window.location.pathname.split("/")[1]
 
 export default class SideBar extends Component {
   renderNavItems() {
     return navItems.map(item => {
+      if(pathRoot === ""){
+        pathRoot = "/"
+      }
       const highlighted = item.pathName === pathRoot ? "highlight" : ""
+      console.log("pathName: ", item.pathName, " pathRoot: ", pathRoot)
       const disabled = this.props.user.loggedOn === false ? "disabled" : ""
       return (
         <li className={`nav-item ${highlighted} ${disabled}`} key={Math.random()}>

@@ -5,18 +5,10 @@ import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
 import Alert from "./Alert";
 import SVG from "react-inlinesvg";
+import {developmentArea} from "../ModelEnums/DDRModelEnums";
 require("bootstrap-datepicker");
 
-//const user = require("../User");
-// const emptyGoal = {
-//   developmentArea: "",
-//   status: "",
-//   action: "",
-//   startDate: Date.now(),
-//   frequency: "Daily"
-// };
-
-export default class Goal extends Component {
+export default class Routine extends Component {
   areaId = randInt();
   actionId = randInt();
   frequencyId = randInt();
@@ -28,7 +20,7 @@ export default class Goal extends Component {
 
     this.state = {
       alert: "",
-      goalId: "goal" + randInt()
+      routineId: "routine" + randInt()
     };
   }
 
@@ -38,11 +30,11 @@ export default class Goal extends Component {
   }
 
   expand() {
-    if (this.props.goal.expand) {
-      const collapsable = "#" + this.state.goalId;
+    if (this.props.routine.expand) {
+      const collapsable = "#" + this.state.routineId;
       $(collapsable).collapse("show");
       $(collapsable).on("shown.bs.collapse", event => {
-        document.getElementById(this.state.goalId).scrollIntoView(true);
+        document.getElementById(this.state.routineId).scrollIntoView(true);
         $(collapsable).off();
       });
     }
@@ -50,8 +42,8 @@ export default class Goal extends Component {
 
   initDate() {
     let date;
-    if (this.props.goal.startDate) {
-      date = new Date(this.props.goal.startDate);
+    if (this.props.routine.startDate) {
+      date = new Date(this.props.routine.startDate);
     } else {
       date = new Date();
     }
@@ -75,10 +67,10 @@ export default class Goal extends Component {
     const date = document.getElementById(this.dateId).value;
 
     const requestBody = {
-      goal: { developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
+      routine: { developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
     };
 
-    fetch("api/ddr/goal", {
+    fetch("api/ddr/routine", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -95,14 +87,14 @@ export default class Goal extends Component {
       .then(data => {
         if (data.n === 1) {
           this.setState({
-            alert: <Alert type="success" message={`The goal has been saved successfully (${new Date().toTimeString()})`} key={Math.random()} />
+            alert: <Alert type="success" message={`The routine has been saved successfully (${new Date().toTimeString()})`} key={Math.random()} />
           });
         } else {
           this.setState({
             alert: (
               <Alert
                 type="danger"
-                message={`An error has occured. The goal has not been saved. (${new Date().toTimeString()})`}
+                message={`An error has occured. The routine has not been saved. (${new Date().toTimeString()})`}
                 key={Math.random()}
               />
             )
@@ -112,24 +104,32 @@ export default class Goal extends Component {
   };
 
   delete = event => {
-    this.props.deleteGoal(this.props.goal.developmentArea, event);
+    this.props.deleteRoutine(this.props.routine.developmentArea, event);
   };
 
   onChange = event => {
-    this.props.goalUpdate(this.props.goal.developmentArea, event);
+    let id
+    const routine = this.props.routine
+    if(routine._id){
+      id = routine._id
+    } else {
+      id = routine.temp_id
+    }
+
+    this.props.routineUpdate(id, event);
   };
 
   render() {
     const areaState = this.props.required || false; //!(this.state.area === undefined);
-    const goal = this.props.goal;
-    const collapseId = this.state.goalId;
+    const routine = this.props.routine;
+    const collapseId = this.state.routineId;
 
     return (
       <div className="card mt-3">
         <a data-toggle="collapse" href={"#" + collapseId} className="collapsed">
           <div className="card-header">
             <SVG className="icon arrow-down" src="./icons/arrow-down.svg" />
-            <h5>{goal.developmentArea || "New Goal"}</h5>
+            <h5>{routine.developmentArea || "New Routine"}</h5>
           </div>
         </a>
         <div className="collapse" id={collapseId}>
@@ -139,16 +139,22 @@ export default class Goal extends Component {
                 <label htmlFor={this.areaId} className="mr-2">
                   Development Area:
                 </label>
-                <input
+                <select
                   type="text"
                   className="form-control"
                   id={this.areaId}
                   placeholder="Enter your development area"
-                  defaultValue={goal.developmentArea}
+                  value={routine.developmentArea}
                   disabled={areaState}
                   name="developmentArea"
                   onChange={this.onChange}
-                />
+                >
+                  
+                {developmentArea.map(area => {
+                  return <option value={area} key={Math.random()}>{area}</option>
+                })}
+
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor={this.actionId} className="mr-2 mb-auto">
@@ -159,7 +165,7 @@ export default class Goal extends Component {
                   className="form-control"
                   id={this.actionId}
                   placeholder="Enter your actions to develop in this area"
-                  value={goal.action}
+                  value={routine.action}
                   name="action"
                   onChange={this.onChange}
                 />
@@ -168,7 +174,7 @@ export default class Goal extends Component {
                 <label htmlFor={this.frequencyId} className="mr-2">
                   Frequency:
                 </label>
-                <select type="text" className="form-control" id={this.frequencyId} name="frequency" value={goal.frequency} onChange={this.onChange}>
+                <select type="text" className="form-control" id={this.frequencyId} name="frequency" value={routine.frequency} onChange={this.onChange}>
                   {frequency.map(item => {
                     return <option key={Math.random()}>{item}</option>;
                   })}
@@ -178,9 +184,9 @@ export default class Goal extends Component {
                 <label htmlFor={this.statusId} className="mr-2">
                   Status:
                 </label>
-                <select type="text" className="form-control" id={this.statusId} value={goal.status} name="status" onChange={this.onChange}>
+                <select type="text" className="form-control" id={this.statusId} value={routine.status} name="status" onChange={this.onChange}>
                   {status.map(item => {
-                    let selected = item === goal.status ? goal.status : "In Progress";
+                    let selected = item === routine.status ? routine.status : "In Progress";
                     return (
                       <option key={Math.random()} defaultValue={selected}>
                         {item}

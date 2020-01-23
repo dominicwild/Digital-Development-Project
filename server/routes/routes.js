@@ -48,8 +48,8 @@ router.get("/checklist", function(req, res) {
         DDRModel.get(user._id).then(ddr => {
           if (ddr) {
             const skillsCheckList = CheckList.checkSkills(ddr);
-            const goalsCheckList = CheckList.checkGoals(ddr);
-            res.send([userCheckList, skillsCheckList, goalsCheckList]);
+            const routinesCheckList = CheckList.checkRoutines(ddr);
+            res.send([userCheckList, skillsCheckList, routinesCheckList]);
           } else {
             res.status(404).send("DDR not found.");
           }

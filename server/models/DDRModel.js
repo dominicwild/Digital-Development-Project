@@ -1,7 +1,7 @@
 const mongoose = require("../mongo");
 const Skill = require("./SkillModel");
 const ObjectId = mongoose.Schema.Types.ObjectId;
-const { frequency, status } = require("../../src/ModelEnums/DDRModelEnums");
+const { frequency, status, developmentArea } = require("../../src/ModelEnums/DDRModelEnums");
 const { ensureSet } = require("../../src/UtilityFunctions");
 
 const DDRSchema = new mongoose.Schema({
@@ -9,10 +9,10 @@ const DDRSchema = new mongoose.Schema({
   mongoId: { type: ObjectId, ref: "Employee", unique: true },
   strengths: { type: [String], set: ensureSet, default: [] },
   opportunities: { type: [String], set: ensureSet, default: [] },
-  goals: [
+  routines: [
     {
-      developmentArea: { type: String, trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal goals
-      action: { type: String, trim: true }, //What you will do to achieve that goal
+      developmentArea: { type: String, enum: developmentArea ,trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal routines
+      action: { type: String, trim: true }, //What you will do to achieve that routine
       frequency: {
         type: String,
         enum: frequency
@@ -71,17 +71,17 @@ function updateSkills(ddr) {
 }
 
 /**
- * Adds a goal to the database for the specified employee. It will update the goal if it already exists, otherwise it will insert it as a new goal.
- * @param {Integer} employeeId The Id of the employee to add the goal to
- * @param {any} goal The goal to add to the DDR that corresponds to the employee ID
+ * Adds a routine to the database for the specified employee. It will update the routine if it already exists, otherwise it will insert it as a new routine.
+ * @param {Integer} employeeId The Id of the employee to add the routine to
+ * @param {any} routine The routine to add to the DDR that corresponds to the employee ID
  */
-function insertGoal(mongoId, goal) {
+function insertRoutine(mongoId, routine) {
   return DDR.updateOne(
     {
       mongoId: mongoId,
-      "goals.developmentArea": goal.developmentArea
+      "routines.developmentArea": routine.developmentArea
     },
-    { mongoId: mongoId, $set: { "goals.$": goal } },
+    { mongoId: mongoId, $set: { "routines.$": routine } },
     { upsert: true }
   ).catch(err => {
     if (err.code === 2) {
@@ -91,7 +91,7 @@ function insertGoal(mongoId, goal) {
           mongoId: mongoId
         },
         {
-          $push: { goals: goal }
+          $push: { routines: routine }
         },
         { upsert: true }
       );
@@ -100,9 +100,9 @@ function insertGoal(mongoId, goal) {
       return DDR.updateOne(
         {
           mongoId: mongoId,
-          //"goals.developmentArea": goal.developmentArea
+          //"routines.developmentArea": routine.developmentArea
         },
-        { $push: { "goals": goal } }
+        { $push: { "routines": routine } }
       );
     } else {
       throw err;
@@ -110,21 +110,21 @@ function insertGoal(mongoId, goal) {
   });
 }
 
-function removeGoal(mongoId, goal) {
+function removeRoutine(mongoId, routine) {
   return DDR.updateOne(
     {
       mongoId: mongoId
     },
     {
-      $pull: { goals: { developmentArea: goal.developmentArea } }
+      $pull: { routines: { developmentArea: routine.developmentArea } }
     }
   );
 }
 
-function getGoals(id) {
+function getRoutines(id) {
   return DDR.findOne({ mongoId: id })
-    .select("goals")
+    .select("routines")
     .exec();
 }
 
-module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertGoal, getGoals, removeGoal };
+module.exports = { create, get, getStrengths, getOpportunities, update, destroy, updateSkills, insertRoutine, getRoutines, removeRoutine };

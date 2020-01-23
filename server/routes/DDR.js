@@ -103,12 +103,12 @@ router
   });
 
 router
-  .route("/goal/")
+  .route("/routine/")
 
   .put(function(req, res) {
     console.log(req.body)
     const body = req.body;
-    DDRModel.insertGoal(req.user._id, body.goal)
+    DDRModel.insertRoutine(req.user._id, body.routine)
       .then(result => {
         res.send(result);
       })
@@ -120,21 +120,21 @@ router
 
   .post(function(req, res) {
     const body = req.body;
-    DDRModel.removeGoal(req.user._id, body.goal)
+    DDRModel.removeRoutine(req.user._id, body.routine)
       .then(result => {
         res.send({ success: true });
       })
       .catch(err => {
         res.send(err);
-        console.log("Error in delete goal ", err);
+        console.log("Error in delete routine ", err);
       });
   });
 
 router
-  .route("/goals/")
+  .route("/routines/")
 
   .post(function(req, res) {
-    DDRModel.getGoals(req.user._id)
+    DDRModel.getRoutines(req.user._id)
       .then(result => {
         if (result) {
           res.send(result);

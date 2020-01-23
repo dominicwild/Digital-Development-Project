@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Profile from "./components/Profile";
 import Skills from "./components/Skills";
-import Goals from "./components/Goals";
+import Routines from "./components/Routines";
 import Home from "./components/Home";
 import Login from "./components/Login";
 require("./LocalStorageJSON");
@@ -63,7 +63,7 @@ class App extends Component {
         toRender = <Skills />;
         break;
       case "/routines":
-        toRender = <Goals />;
+        toRender = <Routines />;
         break;
       case "/":
         toRender = <Home />;

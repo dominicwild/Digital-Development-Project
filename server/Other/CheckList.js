@@ -16,19 +16,19 @@ function checkSkills(ddr) {
   return { name: "Skills", list: skillCheckList };
 }
 
-function checkGoals(ddr) {
-  const goals = ddr.goals;
-  const goalCheckList = [];
+function checkRoutines(ddr) {
+  const routines = ddr.routines;
+  const routineCheckList = [];
   const fields = ["developmentArea", "action", "frequency", "status", "startDate"];
 
-  for (goal of goals) {
+  for (routine of routines) {
     let tempList = {};
     for (field of fields) {
-      tempList[field] = Boolean(goal[field]);
+      tempList[field] = Boolean(routine[field]);
     }
-    goalCheckList.push({ name: goal.developmentArea || "New Goal", list: tempList });
+    routineCheckList.push({ name: routine.developmentArea || "New Routine", list: tempList });
   }
-  return { name: "Goals", list: goalCheckList };
+  return { name: "Routines", list: routineCheckList };
 }
 
-module.exports = { checkUser, checkSkills, checkGoals };
+module.exports = { checkUser, checkSkills, checkRoutines };
