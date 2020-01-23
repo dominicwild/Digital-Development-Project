@@ -67,7 +67,7 @@ export default class Routine extends Component {
     const date = document.getElementById(this.dateId).value;
 
     const requestBody = {
-      routine: { developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
+      routine: { _id: this.props.routine._id,developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
     };
 
     fetch("api/ddr/routine", {

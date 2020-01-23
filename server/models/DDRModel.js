@@ -2,7 +2,7 @@ const mongoose = require("../mongo");
 const Skill = require("./SkillModel");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const { frequency, status, developmentArea } = require("../../src/ModelEnums/DDRModelEnums");
-const { ensureSet } = require("../../src/UtilityFunctions");
+const { ensureSet, randInt } = require("../../src/UtilityFunctions");
 
 const DDRSchema = new mongoose.Schema({
   employeeId: { type: String, ref: "Employee", index: true, unique: true },
@@ -79,7 +79,7 @@ function insertRoutine(mongoId, routine) {
   return DDR.updateOne(
     {
       mongoId: mongoId,
-      "routines.developmentArea": routine.developmentArea
+      "routines._id": routine._id
     },
     { mongoId: mongoId, $set: { "routines.$": routine } },
     { upsert: true }
