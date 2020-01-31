@@ -5,7 +5,7 @@ import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
 import Alert from "./Alert";
 import SVG from "react-inlinesvg";
-import {developmentArea} from "../ModelEnums/DDRModelEnums";
+import { developmentArea } from "../ModelEnums/DDRModelEnums";
 require("bootstrap-datepicker");
 
 export default class Routine extends Component {
@@ -67,7 +67,14 @@ export default class Routine extends Component {
     const date = document.getElementById(this.dateId).value;
 
     const requestBody = {
-      routine: { _id: this.props.routine._id,developmentArea: area, action: action, frequency: frequency, status: status, startDate: new Date(date).getTime() }
+      routine: {
+        _id: this.props.routine._id,
+        developmentArea: area,
+        action: action,
+        frequency: frequency,
+        status: status,
+        startDate: new Date(date).getTime()
+      }
     };
 
     fetch("api/ddr/routine", {
@@ -108,12 +115,12 @@ export default class Routine extends Component {
   };
 
   onChange = event => {
-    let id
-    const routine = this.props.routine
-    if(routine._id){
-      id = routine._id
+    let id;
+    const routine = this.props.routine;
+    if (routine._id) {
+      id = routine._id;
     } else {
-      id = routine.temp_id
+      id = routine.temp_id;
     }
 
     this.props.routineUpdate(id, event);
@@ -149,11 +156,13 @@ export default class Routine extends Component {
                   name="developmentArea"
                   onChange={this.onChange}
                 >
-                  
-                {developmentArea.map(area => {
-                  return <option value={area} key={Math.random()}>{area}</option>
-                })}
-
+                  {developmentArea.map(area => {
+                    return (
+                      <option value={area} key={Math.random()}>
+                        {area}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="form-group">
@@ -174,7 +183,14 @@ export default class Routine extends Component {
                 <label htmlFor={this.frequencyId} className="mr-2">
                   Frequency:
                 </label>
-                <select type="text" className="form-control" id={this.frequencyId} name="frequency" value={routine.frequency} onChange={this.onChange}>
+                <select
+                  type="text"
+                  className="form-control"
+                  id={this.frequencyId}
+                  name="frequency"
+                  value={routine.frequency}
+                  onChange={this.onChange}
+                >
                   {frequency.map(item => {
                     return <option key={Math.random()}>{item}</option>;
                   })}
