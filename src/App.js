@@ -10,6 +10,7 @@ import Skills from "./components/Skills";
 import Routines from "./components/Routines";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import $ from "jquery";
 require("./LocalStorageJSON");
 require("./StringPrototypes");
 
@@ -82,6 +83,10 @@ class App extends Component {
     user[target.name] = target.value;
     this.setState(user);
   };
+
+  componentDidMount(){
+    $('[data-toggle="tooltip"]').tooltip()
+  }
 
   render() {
     return (

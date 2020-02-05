@@ -121,6 +121,7 @@ export default class SkillList extends Component {
     return (
       <>
         <div className="form-group d-flex m-3 justify-content-center align-items-center">
+          {this.props.guidance}
           <label htmlFor={this.props.field}>{this.state.labelText}: </label>
           <div className="input-group">
             <input

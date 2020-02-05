@@ -26,3 +26,6 @@
 
 .filler {
   color: red; }
+
+.tooltip-inner {
+  min-width: 350px; }

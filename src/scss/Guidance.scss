@@ -1,0 +1,9 @@
+.guidance {
+    opacity: 0.25;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
