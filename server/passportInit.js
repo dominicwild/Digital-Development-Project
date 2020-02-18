@@ -1,5 +1,7 @@
 const passport = require("passport");
 const OutlookStrategy = require("passport-outlook");
+const AzureAdOAuth2Strategy = require("passport-azure-ad-oauth2");
+const jwt = require("jsonwebtoken");
 const outlook = require("./outlook");
 const EmployeeModel = require("./models/EmployeeModel");
 
@@ -18,26 +20,27 @@ passport.deserializeUser((userId, done) => {
 });
 
 passport.use(
-  new OutlookStrategy(
+  new AzureAdOAuth2Strategy(
     {
       clientID: outlook.clientID,
       clientSecret: outlook.clientSecret,
-      callbackURL: "http://localhost:3001/api/auth/outlook/callback"
+      callbackURL: outlook.callbackURL,
+      scope: outlook.scope
     },
-    function(accessToken, refreshToken, profile, done) {
-      const displayName = profile.displayName; //In format LastName,FirstName
-      const [lastName, firstName] = displayName.split(",");
+    function(accessToken, refreshToken, params, profile, done) {
+      var profile = jwt.decode(params.id_token, "", true);
+      
       const user = {
-        firstName: firstName,
-        lastName: lastName,
-        alias: profile.alias,
-        email: profile.emails[0].value,
+        firstName: profile.given_name,
+        lastName: profile.family_name,
+        alias: profile.upn.split("@")[0],
+        email: profile.upn,
         accessToken: accessToken,
         refreshToken: refreshToken,
-        outlookId: profile.id
+        outlookId: profile.oid
       };
 
-      EmployeeModel.getByOutlookId(user.outlookId).then(result => {
+      EmployeeModel.getByOutlookId(profile.oid).then(result => {
         if (result === null) {
           EmployeeModel.create(user)
             .then(user => {

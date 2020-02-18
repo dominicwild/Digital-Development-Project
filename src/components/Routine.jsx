@@ -5,7 +5,7 @@ import $ from "jquery";
 import "bootstrap-datepicker/dist/css/bootstrap-datepicker.standalone.css";
 import Alert from "./Alert";
 import SVG from "react-inlinesvg";
-import { developmentArea } from "../ModelEnums/DDRModelEnums";
+import { developmentArea, developmentAreaValues } from "../ModelEnums/DDRModelEnums";
 require("bootstrap-datepicker");
 
 export default class Routine extends Component {
@@ -130,6 +130,11 @@ export default class Routine extends Component {
     const areaState = this.props.required || false; //!(this.state.area === undefined);
     const routine = this.props.routine;
     const collapseId = this.state.routineId;
+    const area = developmentAreaValues.find(item => {
+      return item.area === routine.developmentArea;
+    });
+    console.log(area);
+    const description = area == undefined ? "" : area.description;
 
     return (
       <div className="card mt-3">
@@ -141,6 +146,7 @@ export default class Routine extends Component {
         </a>
         <div className="collapse" id={collapseId}>
           <div className="card-body">
+            <p>{description}</p>
             <div>
               <div className="form-group">
                 <label htmlFor={this.areaId} className="mr-2">

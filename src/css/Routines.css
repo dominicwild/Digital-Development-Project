@@ -1,6 +1,3 @@
-html {
-  scroll-behavior: smooth; }
-
 .routines .card a {
   color: inherit;
   text-decoration: inherit;
@@ -55,3 +52,13 @@ html {
   .routines .button-container .alert {
     margin: 0px;
     width: 100%; }
+
+.routines img {
+  width: 100%; }
+
+.routines .aspirations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem; }
+  .routines .aspirations input:hover {
+    cursor: not-allowed; }

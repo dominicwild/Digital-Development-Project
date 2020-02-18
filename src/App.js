@@ -20,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { user: { loggedOn: false } };
+    this.state = { user: { loggedOn: false, aspirationShort: "", aspirationLong: "" } };
     this.whoami();
   }
 
@@ -64,7 +64,7 @@ class App extends Component {
         toRender = <Skills />;
         break;
       case "/routines":
-        toRender = <Routines />;
+        toRender = <Routines user={this.state.user}/>;
         break;
       case "/":
         toRender = <Home />;

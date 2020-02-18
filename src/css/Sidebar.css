@@ -3,7 +3,7 @@
 
 .sidebar {
   height: calc(100vh);
-  background: rgba(168, 165, 165, 0.315);
+  background: #EEEEEE;
   top: 0;
   min-width: 165px; }
   .sidebar .nav-item:not(.disabled):hover {

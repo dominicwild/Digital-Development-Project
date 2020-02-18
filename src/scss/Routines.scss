@@ -6,10 +6,6 @@ $card-header-color: rgba(
   $alpha: 0.25
 );
 
-html {
-  scroll-behavior: smooth;
-}
-
 .routines {
   .card {
     a {
@@ -91,11 +87,24 @@ html {
     display: flex;
     align-items: flex-start;
     height: 50px;
-    
+
     .alert {
       margin: 0px;
       width: 100%;
     }
-    
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .aspirations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+
+    input:hover {
+      cursor: not-allowed;
+    }
   }
 }

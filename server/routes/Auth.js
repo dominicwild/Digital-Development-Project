@@ -4,13 +4,11 @@ const passport = require("passport");
 
 router.get(
   "/outlook",
-  passport.authenticate("windowslive", {
-    scope: ["openid", "profile", "offline_access", "https://outlook.office.com/Mail.Read"]
-  }),
+  passport.authenticate("azure_ad_oauth2",),
   function(req, res) {}
 );
 
-router.get("/outlook/callback", passport.authenticate("windowslive", { failureRedirect: "/login" }), function(req, res) {
+router.get("/outlook/callback", passport.authenticate("azure_ad_oauth2", { failureRedirect: "/login" }), function(req, res) {
   // Successful authentication, redirect home.
   res.redirect("http://localhost:3000/");
   console.log("Authenticated: ", req.user.firstName);

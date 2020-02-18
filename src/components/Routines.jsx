@@ -3,9 +3,10 @@ import Title from "./Title";
 import Routine from "./Routine";
 import "../css/Routines.css";
 import Alert from "./Alert";
-const user = require("../User");
+import DisplayTextInput from "./DisplayTextInput";
+const routines = require("../ModelEnums/DDRModelEnums").developmentArea;
 
-const requiredRoutines = ["IT Professional", "Current Role", "Future Role", "DXC Employee"];
+const requiredRoutines = routines;
 
 export default class Routines extends Component {
   constructor(props) {
@@ -98,7 +99,7 @@ export default class Routines extends Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ employeeId: user.employeeId, routines: this.state.routines })
+      body: JSON.stringify({ employeeId: this.state.user.employeeId, routines: this.state.routines })
     })
       .then(response => {
         if (response.ok) {
@@ -141,7 +142,7 @@ export default class Routines extends Component {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ employeeId: user.employeeId, routine: { developmentArea: routine.developmentArea } })
+        body: JSON.stringify({ employeeId: this.state.user.employeeId, routine: { developmentArea: routine.developmentArea } })
       })
         .then(response => {
           if (response.ok) {
@@ -181,6 +182,9 @@ export default class Routines extends Component {
   };
 
   render() {
+    const user = this.props.user;
+    console.log(this.state.user);
+
     return (
       <>
         <div className="routines">
@@ -193,14 +197,33 @@ export default class Routines extends Component {
           <p>Here you can enter your routines.</p>
           <p>Routines are the key way for you to develop and achieve your goals. A routine is a sequence of actions which is regularly followed.</p>
           <img src="/img/RoutineImage.png" />
-          <p>When you complete an action regularly, it becomes a routine. Once a routine becomes embedded, it's a habit. When a group of people share the
-          same habits, that's a culture. Establishing learning and development routines is the path to building a true learning and development
-          culture within DXC.</p> <p>An example of a good development routine would be "spend four hours per week practicing piano". "Pass Grade 6 piano"
-          isn't a routine, it's a goal or target.</p> <p>A routine can be time-limited. For example, "prepare for Microsoft AZ-900 certification for twenty
-          minutes daily until the certification is achieved".</p> <p>To help your development and spark ideas for routines, we've divided routines into 5
-          Development Areas. You should have at least one routine for each area. You need to develop skills and competencies as an IT Professional,
-          for your Current Role, for the Future Role you aspire to. To round out the set is your Personal development.</p><p> When choosing your routines,
-          make sure your routines contribute to your Short-Term Aspiration, your Long-Term Aspiration, or one of your Opportunities.</p>
+          <p>
+            When you complete an action regularly, it becomes a routine. Once a routine becomes embedded, it's a habit. When a group of people share
+            the same habits, that's a culture. Establishing learning and development routines is the path to building a true learning and development
+            culture within DXC.
+          </p>
+          <p>
+            An example of a good development routine would be "spend four hours per week practicing piano". "Pass Grade 6 piano" isn't a routine, it's
+            a goal or target.
+          </p>
+          <p>
+            A routine can be time-limited. For example, "prepare for Microsoft AZ-900 certification for twenty minutes daily until the certification
+            is achieved".
+          </p>
+          <p>
+            To help your development and spark ideas for routines, we've divided routines into 5 Development Areas. You should have at least one
+            routine for each area. You need to develop skills and competencies as an IT Professional, for your Current Role, for the Future Role you
+            aspire to. To round out the set is your Personal development.
+          </p>
+          <p>
+            
+            When choosing your routines, make sure your routines contribute to your Short-Term Aspiration, your Long-Term Aspiration, or one of your
+            Opportunities.
+          </p>
+          <div className="aspirations">
+            <DisplayTextInput text={user.aspirationShort} labelText="Short-term Aspiration" />
+            <DisplayTextInput text={user.aspirationLong} labelText="Long-term Aspiration" />
+          </div>
           {this.state.alert}
           {this.renderRoutines()}
         </div>
