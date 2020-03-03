@@ -30,14 +30,14 @@ export default class Routine extends Component {
   }
 
   expand() {
+    const collapsable = "#" + this.state.routineId;
     if (this.props.routine.expand) {
       const collapsable = "#" + this.state.routineId;
-      $(collapsable).collapse("show");
-      $(collapsable).on("shown.bs.collapse", event => {
-        document.getElementById(this.state.routineId).scrollIntoView(true);
-        $(collapsable).off();
-      });
-    }
+      $("#" + this.state.routineId).collapse("show");
+    } 
+    $(collapsable).on("shown.bs.collapse", event => {
+      document.getElementById(this.state.routineId).scrollIntoView(true);
+    });
   }
 
   initDate() {

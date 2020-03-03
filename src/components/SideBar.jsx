@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SVG from "react-inlinesvg";
+import { Link } from "@reach/router";
 
 const navItems = [
   {

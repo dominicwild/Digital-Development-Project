@@ -10,6 +10,7 @@ import Skills from "./components/Skills";
 import Routines from "./components/Routines";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import { Router, Link } from "@reach/router";
 import $ from "jquery";
 require("./LocalStorageJSON");
 require("./StringPrototypes");
@@ -55,26 +56,15 @@ class App extends Component {
   }
 
   route = () => {
-    let toRender = null;
-    switch (window.location.pathname) {
-      case "/profile":
-        toRender = <Profile user={this.state.user} onChange={this.onChange} />;
-        break;
-      case "/skills":
-        toRender = <Skills />;
-        break;
-      case "/routines":
-        toRender = <Routines user={this.state.user}/>;
-        break;
-      case "/":
-        toRender = <Home />;
-        break;
-      case "/login":
-        toRender = <Login />;
-        break;
-      default:
-    }
-    return toRender;
+    return (
+      <Router>
+        <Profile user={this.state.user} onChange={this.onChange} path="/profile" />
+        <Skills path="/skills" />
+        <Routines user={this.state.user} path="/routines" />
+        <Home path="/" />
+        <Login path="/login" />
+      </Router>
+    );
   };
 
   onChange = event => {
@@ -84,8 +74,8 @@ class App extends Component {
     this.setState(user);
   };
 
-  componentDidMount(){
-    $('[data-toggle="tooltip"]').tooltip()
+  componentDidMount() {
+    $('[data-toggle="tooltip"]').tooltip();
   }
 
   render() {
