@@ -12,7 +12,5 @@
   .navbar a:not(.navbar-brand):hover {
     background-color: #4b1df2; }
 
-.navbar .navbar-brand #path5899,
-.navbar .navbar-brand #path5901 {
-  fill: white;
-  color: white; }
+.navbar .navbar-brand svg {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(108deg) brightness(104%) contrast(104%); }

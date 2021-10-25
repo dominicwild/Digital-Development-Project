@@ -28,7 +28,7 @@ export default class NavBar extends Component {
       <>
         <nav className="navbar navbar-dark bg-primary">
           <a className="navbar-brand" href="/">
-            <SVG src="/icons/DXC_Technology_logo.svg" />
+            <SVG src="/icons/logoipsum-logo.svg" />
           </a>
           <this.LoggedIn />
         </nav>

@@ -6,8 +6,8 @@ const developmentAreaValues = [
     description: "Routines to develop yourself as an IT Professional."
   },
   {
-    area: "DXC Employee",
-    description: "Routines to develop yourself as an DXC Employee."
+    area: "Employee",
+    description: "Routines to develop yourself as an Employee."
   },
   {
     area: "Current Role",

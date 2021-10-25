@@ -26,5 +26,5 @@ hero-service.js
 heroModel.js
 config.js
 runMongo.bat
-/DXC_Icons_All/*
 outlook.js
+*.css

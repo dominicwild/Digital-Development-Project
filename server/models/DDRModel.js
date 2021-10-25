@@ -13,7 +13,7 @@ const DDRSchema = new mongoose.Schema({
   aspirationLong: { type: String, trim: true },
   routines: [
     {
-      developmentArea: { type: String, enum: developmentArea ,trim: true }, //E.g. Develop as DXC Employee, develop in current role, develop as IT professional, personal routines
+      developmentArea: { type: String, enum: developmentArea ,trim: true }, //E.g. Develop as Employee, develop in current role, develop as IT professional, personal routines
       action: { type: String, trim: true }, //What you will do to achieve that routine
       frequency: {
         type: String,

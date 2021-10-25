@@ -200,7 +200,7 @@ export default class Routines extends Component {
           <p>
             When you complete an action regularly, it becomes a routine. Once a routine becomes embedded, it's a habit. When a group of people share
             the same habits, that's a culture. Establishing learning and development routines is the path to building a true learning and development
-            culture within DXC.
+            culture.
           </p>
           <p>
             An example of a good development routine would be "spend four hours per week practicing piano". "Pass Grade 6 piano" isn't a routine, it's

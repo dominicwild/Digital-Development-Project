@@ -6,7 +6,7 @@ class Login extends Component {
   render() {
     return (
       <div className="login">
-        <SVG src="/icons/DXC_Technology_logo.svg" className="brand mb-5" />
+        <SVG src="/icons/logoipsum-logo.svg" className="brand mb-5" />
         <div className="d-flex justify-content-center">
           <button
             className="btn btn-primary p-4"
